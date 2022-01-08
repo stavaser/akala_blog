@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ArticleCard from '../components/ArticleCard';
-import { Layout } from 'antd';
+import { Layout, Menu } from 'antd';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import WidthListener from '../components/WidthListener';
 import {
   DESKTOP,
@@ -16,6 +23,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const Main = ({ mode }) => {
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
+  const [collapsed, setCollapsed] = useState(false);
   const screen_mode = useSelector((state) => state.screen.mode);
 
   useEffect(() => {
@@ -27,12 +35,38 @@ const Main = ({ mode }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, [width]);
 
+  const toggle = () => {
+    setCollapsed(!collapsed);
+  };
+  const menu_items = [
+    { title: 'Home', icon: '🏠' },
+    { title: 'Standardized Testing', icon: '📝' },
+    { title: "Barbara's Corner", icon: '💜' },
+    { title: 'College Admissions', icon: '🎓' },
+    { title: 'AKALA students', icon: '🧑🏻‍🤝‍🧑🏾' },
+    { title: 'Amazing Opportunities!!', icon: '🌟' },
+    { title: 'Calling All Podcast Lovers!', icon: '🎧' },
+    { title: 'About Us', icon: 'ℹ️' },
+    { title: 'Contact', icon: '☎️' },
+    { title: 'Just For Fun!!', icon: '🤪' },
+  ];
+
   return (
     <Layout>
       <Header className="header-container">AKALA</Header>
       <Layout>
         {screen_mode == DESKTOP && (
-          <Sider className="sider-container">Sider</Sider>
+          <Sider className="sider-container">
+            <Menu mode="inline" defaultSelectedKeys={['1']}>
+              {menu_items.map((item) => {
+                return (
+                  <Menu.Item key={item.title} icon={item.icon}>
+                    {item.title}
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          </Sider>
         )}
         <Content>
           <ArticleCard
@@ -47,7 +81,18 @@ const Main = ({ mode }) => {
             body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
             screen_mode
           />
+
+          <ArticleCard
+            title="Piano Lalalala"
+            date="Jan 5"
+            likes={5}
+            comments={1}
+            tags={['piano', 'music', 'notes']}
+            body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
+            screen_mode
+          />
         </Content>
+        {screen_mode == DESKTOP && <Sider className="sider-container" />}
       </Layout>
     </Layout>
   );

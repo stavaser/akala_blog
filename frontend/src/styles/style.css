@@ -1,3 +1,10 @@
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   /* padding: 0px 25%; */
   background-color: #efefef;
@@ -14,6 +21,27 @@ h4 {
   padding: 1em;
   border-radius: 1em;
 }
+.ant-layout {
+  background-color: transparent;
+}
+.ant-layout-content {
+  padding: 0 50px;
+}
+.ant-layout aside {
+  flex: 0 0 300px !important;
+  min-width: 300px !important;
+  width: 300px !important;
+}
+.ant-menu {
+  background-color: transparent;
+  padding-left: 80px;
+}
+.ant-layout-header {
+  padding: 0 100px;
+}
+/* .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  border-radius: 20px;
+} */
 
 .header-container {
   height: 60px;
@@ -27,6 +55,8 @@ h4 {
 .article-card {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2); */
+  margin-bottom: 12px;
   border-radius: 1em;
   display: flex;
   flex-direction: column;
@@ -53,4 +83,191 @@ h4 {
 
 .article-body h1 {
   font-size: 3em;
+}
+
+.question-title {
+  text-align: center;
+  font-size: 30px;
+}
+
+.portrait-banner {
+  background-image: url('https://www.pbs.org/american-portrait/vault/22625/thumbs/SXNQdWJsaWM9MSZNb2RlPVImT3V0cHV0Rm9ybWF0PWpwZyZRdWFsaXR5PTYwJlJlc1g9MjY1MCZWYXVsdElEPTIyNjI1JnR0bD0zNDU2MDAmdnR0cz0yMDIxLTA2LTMwKzEzJTNBMzclM0EyNg==.jpg');
+  background-size: cover;
+  text-align: center;
+  padding: 50px 100px;
+}
+
+.portrait-banner h1 {
+  font-size: 50px;
+  color: white;
+}
+.portrait-banner p {
+  font-size: 20px;
+  color: white;
+}
+
+.prompt-container {
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
+
+.prompt {
+  display: flex;
+  background-color: #fff;
+  color: #000;
+  border-color: #000;
+  flex-direction: row;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+.prompt-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 0 none;
+  border-top: 0 none;
+  border-right: 1px solid #000;
+  min-width: 512px;
+  width: auto;
+  padding: 0 40px;
+  transition-duration: 0.3s;
+  /* width: calc((29 * 3%) - (36px + 52px)); */
+  max-width: 712px;
+}
+.prompt:hover .prompt-header {
+  background-color: black;
+}
+.prompt:hover .prompt-header h1 {
+  color: #fff;
+}
+.prompt-header h1 {
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+}
+
+.prompt-content {
+  position: relative;
+  z-index: 10;
+}
+.prompt-content-overflow {
+  position: relative;
+  width: auto;
+  overflow: initial;
+  scroll-behavior: smooth;
+}
+
+.prompt-content-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  border-color: #000;
+  width: 100vw;
+  transition: all 0.3s;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.prompt-content-item {
+  /* width: 200px;
+  height: 200px; */
+  list-style-type: none;
+  display: block;
+  float: left;
+  clear: none;
+  transition: all 0.3s;
+  width: auto;
+  /* flex: 1 0 29%; */
+  float: none;
+  position: relative;
+}
+
+.prompt-content-item img {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-right: 1px solid #000;
+  border-bottom: 0 none;
+  z-index: 1;
+  object-fit: cover;
+  transition-duration: 0.3s;
+  overflow: hidden;
+}
+
+.prompt-request {
+  margin: 100px 40px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.prompt-request h1 {
+  font-size: 50px;
+}
+
+.prompt-request p {
+  font-size: 20px;
+  margin: 20px 200px;
+}
+
+.prompt-content-item-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  width: calc(100% - 1px);
+  height: 100%;
+  overflow: hidden;
+  margin-top: 0;
+  background: rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 18px;
+  color: #000;
+  z-index: 999;
+  transition-duration: 0.2s;
+}
+
+.prompt-content-item:hover .prompt-content-item-info {
+  visibility: visible;
+  opacity: 1;
+}
+
+.prompt-content-item-text {
+  transition: 0.2s;
+  transform: translateY(1em);
+}
+
+.prompt-content-item:hover .prompt-content-item-text {
+  transform: translateY(0);
+}
+
+.prompt-content-item-info h1 {
+  color: #000;
+  font-size: 24px;
+}
+
+.prompt-content-item-info h2 {
+  font-size: 18px;
+  padding: 7px 0 24px;
+  line-height: 1.25;
+}
+
+.view-full {
+  align-self: flex-end;
 }
