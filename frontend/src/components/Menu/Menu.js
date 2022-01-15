@@ -9,16 +9,16 @@ const Menu = ({ open, ...props }) => {
   return (
     <StyledMenu open={open} aria-hidden={!isHidden} {...props}>
       <a href="/" tabIndex={tabIndex}>
-        <span aria-hidden="true">💁🏻‍♂️</span>
-        About us
+        <span aria-hidden="true">🎓</span>
+        College Admissions
       </a>
       <a href="/" tabIndex={tabIndex}>
-        <span aria-hidden="true">💸</span>
-        Pricing
+        <span aria-hidden="true">🧑🏻‍🤝‍🧑🏾</span>
+        AKALA students
       </a>
       <a href="/" tabIndex={tabIndex}>
-        <span aria-hidden="true">📩</span>
-        Contact
+        <span aria-hidden="true">🌟</span>
+        Extra
       </a>
     </StyledMenu>
   );

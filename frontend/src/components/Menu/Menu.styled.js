@@ -9,11 +9,11 @@ export const StyledMenu = styled.nav`
   height: 100vh;
   text-align: left;
   padding: 2rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   transition: transform 0.3s ease-in-out;
-  /* z-index: 999; */
+  max-width: 22%;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;

@@ -9,6 +9,7 @@ export const StyledHeader = styled.div`
       transform: translateY(-6px);
     }
   }
+
   .container {
     position: relative;
     padding: 20px;
