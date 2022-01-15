@@ -1,5 +1,6 @@
 // credits: https://www.emgoto.com/react-table-of-contents/
 
+import { Timeline, Steps, Divider } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyledArticle, StyledNav } from '../components/Article/Article.styled';
 import Headings from '../components/Article/Headings';
@@ -7,11 +8,14 @@ import {
   useIntersectionObserver,
   useHeadingsData,
 } from '../components/Article/utils';
+import ContentsTable from '../components/ContentsTable/ContentsTable';
 import {
   StyledLayout,
   Sider,
   Content,
 } from '../components/shared/Layout.styled';
+
+const { Step } = Steps;
 
 /**
  * Renders the table of contents.
@@ -36,34 +40,38 @@ const DummyText =
 const ArticlePage = () => {
   return (
     <StyledLayout>
-      <Sider>
+      <Sider article>
         <StyledNav>
-          <TableOfContents />
+          <ContentsTable />
+          {/* <TableOfContents /> */}
         </StyledNav>
       </Sider>
-      <Content>
+      <Content article>
         <StyledArticle>
           <div className="container">
             <main>
               <img src={`https://picsum.photos/800/300/?random`} />
+              <div className="content">
+                <h1>What role do subject tests play? NONE!</h1>
 
-              <h2 id="big">big</h2>
-              <p>{DummyText}</p>
-              <h2 id="initial-header">Initial header</h2>
-              <p>{DummyText}</p>
-              <h2 id="second-header">Second header</h2>
-              <p>{DummyText}</p>
-              <h3 id="third-header">Third header</h3>
-              <p>{DummyText}</p>
-              <p>{DummyText}</p>
-              <h2 id="fourth-header">Fourth header</h2>
-              <p>{DummyText}</p>
-              <p>{DummyText}</p>
-              <p>{DummyText}</p>
-              <p>{DummyText}</p>
-              <h3 id="fifth-header">Fifth header</h3>
-              <p>{DummyText}</p>
-              <p>{DummyText}</p>
+                <h2 id="big">big</h2>
+                <p>{DummyText}</p>
+                <h2 id="initial-header">Initial header</h2>
+                <p>{DummyText}</p>
+                <h2 id="second-header">Second header</h2>
+                <p>{DummyText}</p>
+                <h3 id="third-header">Third header</h3>
+                <p>{DummyText}</p>
+                <p>{DummyText}</p>
+                <h2 id="fourth-header">Fourth header</h2>
+                <p>{DummyText}</p>
+                <p>{DummyText}</p>
+                <p>{DummyText}</p>
+                <p>{DummyText}</p>
+                <h3 id="fifth-header">Fifth header</h3>
+                <p>{DummyText}</p>
+                <p>{DummyText}</p>
+              </div>
             </main>
           </div>
         </StyledArticle>

@@ -10,6 +10,8 @@ export const Sider = styled.div`
   max-width: 20%;
   padding: 20px;
   &:first-child {
+    /* min-width: ${({ article }) => (article ? '15%' : '20%')};
+    max-width: ${({ article }) => (article ? '15%' : '20%')}; */
     background-color: ${({ theme }) => theme.white};
   }
   height: 100vh;
@@ -19,6 +21,8 @@ export const Sider = styled.div`
 export const Content = styled.div`
   flex-grow: 1;
   margin: 0 40px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  background-color: ${({ article }) => (article ? '#fff' : '20%')};
+
   /* background-color: red; */
 `;

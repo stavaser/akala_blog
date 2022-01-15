@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import { theme } from '../../theme';
 
 export const StyledArticle = styled.div`
   .container {
     display: flex;
+  }
+  h1 {
+    font-size: 50px;
+    line-height: 50px;
+    margin-bottom: 40px;
   }
 
   /*  Gives a little bit of buffer when header is navigated to */
@@ -13,8 +19,11 @@ export const StyledArticle = styled.div`
   }
 
   img {
-    border-radius: 1em;
-    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .content {
+    padding: 40px 80px;
   }
 `;
 
