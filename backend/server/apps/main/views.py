@@ -26,7 +26,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.decorators import api_view, permission_classes
 
-from .models import *
+from .models import Article
 from .serializers import *
 
 class ArticleViewSet(viewsets.ViewSet):
