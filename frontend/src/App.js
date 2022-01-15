@@ -17,6 +17,7 @@ import {
   Content,
 } from './components/shared/Layout.styled';
 import ArticlePage from './pages/ArticlePage';
+import Footer from './components/Footer/Footer';
 const App = () => {
   return (
     <div>
@@ -27,6 +28,8 @@ const App = () => {
         <Route exact path={'/article/:id'} element={<ArticlePage />} />
         <Route exact path={'/studentPortrait'} element={StudentPortrait} />
       </Routes>
+
+      <Footer />
     </div>
   );
 };
