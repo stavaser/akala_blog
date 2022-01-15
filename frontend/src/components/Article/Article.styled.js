@@ -1,33 +1,49 @@
 import styled from 'styled-components';
 
 export const StyledArticle = styled.div`
-  background-color: ${({ theme }) => theme.white};
-  box-shadow: ${({ theme }) => theme.shadow};
-  margin-bottom: 20px;
-  border-radius: 1em;
-  display: flex;
-  flex-direction: column;
-
-  .article-image-container {
-    height: 50%;
-  }
-  .article-image {
-    object-fit: cover;
-    width: 100%;
-    height: 40vh;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+  .container {
+    display: flex;
   }
 
-  .article-body {
-    flex-grow: 2;
-    padding: 1em;
+  /*  Gives a little bit of buffer when header is navigated to */
+  h2,
+  h3 {
+    padding-top: 16px;
+    margin-top: -16px;
   }
-  .article-body h4 {
+`;
+
+export const StyledNav = styled.div`
+  nav {
+    width: 220px;
+    min-width: 220px;
+    padding: 16px;
+    margin: 8px;
+    align-self: flex-start;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 48px;
+    max-height: calc(100vh - 70px);
+    overflow: auto;
+  }
+
+  @media screen and (max-width: 900px) {
+    nav {
+      display: none;
+    }
+  }
+
+  a {
+    font-size: 16px;
     color: ${({ theme }) => theme.green};
+    text-decoration: none;
   }
 
-  .article-body h1 {
-    font-size: 3em;
+  li.active > a {
+    font-weight: 900;
+  }
+
+  li > a:hover {
+    text-decoration: underline;
   }
 `;

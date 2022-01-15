@@ -6,9 +6,11 @@ export const StyledLayout = styled.div`
 `;
 
 export const Sider = styled.div`
-  width: 20%;
+  min-width: 20%;
+  /* background-color: green; */
 `;
 export const Content = styled.div`
   flex-grow: 1;
   margin: 0 50px;
+  /* background-color: red; */
 `;

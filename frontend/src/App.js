@@ -16,20 +16,17 @@ import {
   Sider,
   Content,
 } from './components/shared/Layout.styled';
+import ArticlePage from './pages/ArticlePage';
 const App = () => {
   return (
     <div>
       <Header />
-      <StyledLayout>
-        <Sider>s</Sider>
-        <Content>
-          <Routes>
-            <Route exact path={'/'} element={<Main />} />
-            <Route exact path={'/studentPortrait'} element={StudentPortrait} />
-          </Routes>
-        </Content>
-        <Sider>s</Sider>
-      </StyledLayout>
+
+      <Routes>
+        <Route exact path={'/'} element={<Main />} />
+        <Route exact path={'/article'} element={<ArticlePage />} />
+        <Route exact path={'/studentPortrait'} element={StudentPortrait} />
+      </Routes>
     </div>
   );
 };
