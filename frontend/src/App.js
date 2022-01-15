@@ -24,7 +24,7 @@ const App = () => {
 
       <Routes>
         <Route exact path={'/'} element={<Main />} />
-        <Route exact path={'/article'} element={<ArticlePage />} />
+        <Route exact path={'/article/:id'} element={<ArticlePage />} />
         <Route exact path={'/studentPortrait'} element={StudentPortrait} />
       </Routes>
     </div>

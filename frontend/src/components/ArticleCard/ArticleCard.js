@@ -1,7 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { StyledArticleCard } from './ArticleCard.styled';
 
-const ArticleCard = ({ image, title, date, body, comments, screen_mode }) => {
+const ArticleCard = ({
+  id,
+  image,
+  title,
+  date,
+  body,
+  comments,
+  screen_mode,
+}) => {
   return (
     <StyledArticleCard>
       <a className="article-image-container">
@@ -10,7 +19,13 @@ const ArticleCard = ({ image, title, date, body, comments, screen_mode }) => {
       <div className="article-body">
         <h4>{date}</h4>
         <h1>
-          <a>{title}</a>
+          <Link
+            to={{
+              pathname: `/article/${id}`,
+            }}
+          >
+            {title}
+          </Link>
         </h1>
         <p>{body}</p>
       </div>

@@ -5,15 +5,15 @@ export const StyledMenu = styled.nav`
   flex-direction: column;
   justify-content: center;
   background: ${({ theme }) => theme.green};
-  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  transform: ${({ open }) => (open ? 'translateX(0%)' : 'translateX(100%)')};
   height: 100vh;
   text-align: left;
   padding: 2rem;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   transition: transform 0.3s ease-in-out;
-  z-index: 10;
+  /* z-index: 999; */
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;

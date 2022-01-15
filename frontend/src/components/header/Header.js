@@ -14,17 +14,8 @@ const Header = () => {
 
   return (
     <>
-      <FocusLock disabled={!open}>
-        <Menu open={open} setOpen={setOpen} id={menuId} />
-      </FocusLock>
-
       <StyledHeader>
         <div className="container">
-          <div className="burger">
-            <FocusLock disabled={!open}>
-              <Burger open={open} setOpen={setOpen} aria-controls={menuId} />
-            </FocusLock>
-          </div>
           <div className="logo">
             <span>G</span>
             <span>O</span>
@@ -33,6 +24,12 @@ const Header = () => {
             <span>A</span>
             <span>L</span>
             <span>A</span>
+          </div>
+          <div className="burger">
+            <FocusLock disabled={!open}>
+              <Burger open={open} setOpen={setOpen} aria-controls={menuId} />
+              <Menu open={open} setOpen={setOpen} id={menuId} />
+            </FocusLock>
           </div>
         </div>
       </StyledHeader>

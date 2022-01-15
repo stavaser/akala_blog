@@ -10,9 +10,9 @@ export const StyledHeader = styled.div`
     }
   }
   .container {
+    position: relative;
     padding: 20px;
     display: flex;
-    position: relative;
     background-color: ${({ theme }) => theme.white};
     box-shadow: ${({ theme }) => theme.shadow};
     justify-content: space-between;
