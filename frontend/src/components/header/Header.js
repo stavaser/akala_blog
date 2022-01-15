@@ -5,6 +5,7 @@ import FocusLock from 'react-focus-lock';
 import Burger from '../Burger/Burger';
 import Menu from '../Menu/Menu';
 import { StyledHeader } from './Header.styled';
+import { Link } from 'react-router-dom';
 const Header = () => {
   const [open, setOpen] = useState(false);
   const node = useRef();
@@ -17,13 +18,19 @@ const Header = () => {
       <StyledHeader>
         <div className="container">
           <div className="logo">
-            <span>G</span>
-            <span>O</span>
-            <span>A</span>
-            <span>K</span>
-            <span>A</span>
-            <span>L</span>
-            <span>A</span>
+            <Link
+              to={{
+                pathname: `/`,
+              }}
+            >
+              <span>G</span>
+              <span>O</span>
+              <span>A</span>
+              <span>K</span>
+              <span>A</span>
+              <span>L</span>
+              <span>A</span>
+            </Link>
           </div>
           <div className="burger">
             <FocusLock disabled={!open}>

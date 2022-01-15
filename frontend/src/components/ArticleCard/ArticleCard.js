@@ -1,3 +1,5 @@
+import { ClockCircleOutlined } from '@ant-design/icons';
+import { Badge } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledArticleCard } from './ArticleCard.styled';
@@ -12,24 +14,42 @@ const ArticleCard = ({
   screen_mode,
 }) => {
   return (
-    <StyledArticleCard>
-      <a className="article-image-container">
-        {image ? <img className="article-image" src={image} /> : null}
-      </a>
-      <div className="article-body">
-        <h4>{date}</h4>
-        <h1>
-          <Link
-            to={{
-              pathname: `/article/${id}`,
-            }}
-          >
-            {title}
-          </Link>
-        </h1>
-        <p>{body}</p>
-      </div>
-    </StyledArticleCard>
+    <Badge.Ribbon
+      text="Standardized Testing"
+      color="#d7b221"
+      style={{ borderRadius: '2px' }}
+    >
+      <StyledArticleCard hasImage={image}>
+        <Link
+          className="article-image-container"
+          to={{
+            pathname: `/article/${id}`,
+          }}
+        >
+          {image ? <img className="article-image" src={image} /> : null}
+        </Link>
+
+        <div className="article-body">
+          <div className="article-info">
+            <h4>{date}</h4>
+            <h4>
+              <ClockCircleOutlined /> 4 min read
+            </h4>
+          </div>
+
+          <h1>
+            <Link
+              to={{
+                pathname: `/article/${id}`,
+              }}
+            >
+              {title}
+            </Link>
+          </h1>
+          <p>{body}</p>
+        </div>
+      </StyledArticleCard>
+    </Badge.Ribbon>
   );
 };
 

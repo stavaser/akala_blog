@@ -9,7 +9,7 @@ export const StyledArticleCard = styled.div`
   border-radius: 1em;
   display: flex;
   flex-direction: column;
-
+  padding-top: ${({ hasImage }) => (hasImage ? 0 : '26px')};
   .article-image-container {
     height: 50%;
   }
@@ -31,5 +31,18 @@ export const StyledArticleCard = styled.div`
 
   .article-body h1 {
     font-size: 3em;
+  }
+  .article-body h3 {
+    color: ${({ theme }) => theme.green};
+  }
+  h3 span {
+    color: ${({ theme }) => theme.yellow};
+  }
+  .article-info h4 {
+    display: block;
+  }
+  .article-info {
+    display: flex;
+    justify-content: space-between;
   }
 `;
