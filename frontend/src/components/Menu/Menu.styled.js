@@ -14,20 +14,22 @@ export const StyledMenu = styled.nav`
   right: 0;
   transition: transform 0.3s ease-in-out;
   max-width: 22%;
+  z-index: 100;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
   }
 
   a {
-    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
     text-transform: uppercase;
-    padding: 2rem 0;
+    padding: 16px 0;
     font-weight: bold;
-    letter-spacing: 0.5rem;
     color: ${({ theme }) => theme.white};
     text-decoration: none;
-    transition: color 0.3s linear;
+    transition: 0.3s linear;
 
     @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 1.5rem;
@@ -35,7 +37,46 @@ export const StyledMenu = styled.nav`
     }
 
     &:hover {
-      color: ${({ theme }) => theme.primaryHover};
+      transform: scale(1.05);
     }
+  }
+
+  svg {
+    fill: none;
+    &:first-child {
+      stroke: red;
+    }
+    &:nth-child(2n) {
+      stroke: orange;
+    }
+    &:nth-child(3n) {
+      stroke: yellow;
+    }
+
+    stroke-width: 1.8;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 338;
+    stroke-dashoffset: 338;
+    stroke-linecap: round;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% + 40px);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: stroke-dashoffset 0s 0.2s, opacity 0.2s;
+    z-index: -1;
+  }
+
+  a.--active svg {
+    stroke: #ff4c4c;
+  }
+
+  a.--active svg,
+  a:hover svg {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transition: opacity 0s,
+      stroke-dashoffset 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 `;

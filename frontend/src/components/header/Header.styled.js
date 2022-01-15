@@ -15,7 +15,8 @@ export const StyledHeader = styled.div`
     padding: 20px;
     display: flex;
     background-color: ${({ theme }) => theme.white};
-    box-shadow: ${({ theme }) => theme.shadow};
+    /* box-shadow: ${({ theme }) => theme.shadow}; */
+    border-bottom: ${({ theme }) => theme.border};
     justify-content: space-between;
   }
   .logo {

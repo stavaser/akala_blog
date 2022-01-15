@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const StyledArticleCard = styled.div`
   background-color: ${({ theme }) => theme.white};
-  box-shadow: ${({ theme }) => theme.shadow};
+  /* box-shadow: ${({ theme }) => theme.shadow}; */
+  border-bottom: ${({ theme }) => theme.border};
+
   margin-bottom: 20px;
   border-radius: 1em;
   display: flex;

@@ -11,19 +11,17 @@ export const StyledArticle = styled.div`
     padding-top: 16px;
     margin-top: -16px;
   }
+
+  img {
+    border-radius: 1em;
+    margin-bottom: 20px;
+  }
 `;
 
 export const StyledNav = styled.div`
   nav {
-    width: 220px;
-    min-width: 220px;
-    padding: 16px;
-    margin: 8px;
     align-self: flex-start;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 48px;
-    max-height: calc(100vh - 70px);
+    /* max-height: calc(100vh - 70px); */
     overflow: auto;
   }
 

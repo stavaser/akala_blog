@@ -23,6 +23,8 @@ const TableOfContents = () => {
 
   return (
     <nav aria-label="Table of contents">
+      <h1>Table of contents:</h1>
+
       <Headings headings={nestedHeadings} activeId={activeId} />
     </nav>
   );
@@ -34,9 +36,7 @@ const DummyText =
 const ArticlePage = () => {
   return (
     <StyledLayout>
-      <Sider
-        style={{ position: 'sticky', top: '20px', alignSelf: 'flex-start' }}
-      >
+      <Sider>
         <StyledNav>
           <TableOfContents />
         </StyledNav>
@@ -45,6 +45,8 @@ const ArticlePage = () => {
         <StyledArticle>
           <div className="container">
             <main>
+              <img src={`https://picsum.photos/800/300/?random`} />
+
               <h2 id="big">big</h2>
               <p>{DummyText}</p>
               <h2 id="initial-header">Initial header</h2>
