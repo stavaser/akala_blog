@@ -15,6 +15,7 @@ class Category(models.Model):
     category = models.CharField(max_length=160)
     emoji = models.CharField(max_length=100)
     description = models.TextField(max_length=360)
+    is_visible = models.BooleanField(default=True)
 
     def __str__(self):
         return self.category
@@ -28,15 +29,16 @@ class Category(models.Model):
 
 
 class ArticleSection(models.Model):
-    article_category = models.ForeignKey(Category, related_name="article_categories", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="article_categories", on_delete=models.CASCADE)
     section = models.CharField(max_length=160)
+    is_visible = models.BooleanField(default=True)
     
     def save(self, *args, **kwargs):
         self.section = title_case(self.section)
         super(ArticleSection, self).save(*args, **kwargs)
     
     def __str__(self):
-        return self.article_category.category + " / " + self.section
+        return self.category.category + " / " + self.section
 
     class Meta:
         verbose_name_plural = "sections"
@@ -46,14 +48,17 @@ def article_image_path(self, filename):
     return 'media/articles/article_{0}/{1}'.format(self.id, filename)
 
 class Article(models.Model):
-    article_section = models.ForeignKey(ArticleSection, on_delete=models.CASCADE)
+    section = models.ForeignKey(ArticleSection, on_delete=models.CASCADE)
     title = models.CharField(max_length=160)
     text = RichTextField()
-    readingTime = models.PositiveSmallIntegerField(blank=True, null=True)
-    date = models.DateTimeField(auto_now=True)
+    readtime = models.PositiveSmallIntegerField(blank=True, null=True)
+    date = models.DateTimeField(default=datetime.now())
+    str_date = models.CharField(max_length=160, editable=False, blank=True, null=True)
     author = models.CharField(max_length=160, blank=True, null=True)
-    image = models.ImageField(upload_to=article_image_path, height_field=None, width_field=None)
+    image = models.ImageField(upload_to=article_image_path, height_field=None, width_field=None, blank=True, null=True)
     image_credits = models.CharField(max_length=160, blank=True, null=True)
+    is_visible = models.BooleanField(default=True)
+    view_count = models.IntegerField(editable=False, default=0)
 
     def get_readtime(self):
         # result = readtime.of_html(self.text)
@@ -61,8 +66,8 @@ class Article(models.Model):
         return 2
 
     def save(self, *args, **kwargs):
-        self.readingTime = self.get_readtime()
-        self.date = self.date.strftime("%d %b, %Y")
+        self.readtime = self.get_readtime()
+        self.str_date = self.date.strftime("%d %b, %Y")
         if self.id is None:
             saved_image = self.image
             self.image = None
@@ -76,4 +81,4 @@ class Article(models.Model):
 
 
     def __str__(self):
-        return self.article_section.article_category.category + " / " + self.article_section.section + " / " + self.title + " / " + self.date.strftime("%d %b, %Y")
+        return self.section.category.category + " / " + self.section.section + " / " + self.title + " / " + self.date.strftime("%d %b, %Y")

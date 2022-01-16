@@ -5,8 +5,14 @@ urlpatterns = [
     path("article/", ArticleViewSet.as_view(
         {
             'get': 'list',
-            # 'post': 'create',
-            # 'put': 'partial_update',
-            # 'delete': 'destroy'
+            'put': 'partial_update',
+        })),
+    path("category/", CategoryViewSet.as_view(
+        {
+            'get': 'list',
+        })),
+    path("article_section/", ArticleSectionViewSet.as_view(
+        {
+            'get': 'list',
         })),
 ]
