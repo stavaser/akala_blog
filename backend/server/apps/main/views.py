@@ -83,6 +83,10 @@ class ArticleSectionViewSet(viewsets.ViewSet):
         if request.GET.get('section_id'):                                  
             section_id = request.GET.get('section_id')
             queryset = ArticleSection.objects.filter(id=section_id)
+        # /article_section/?category_id=1
+        if request.GET.get('category_id'):                                  
+            category_id = request.GET.get('category_id')
+            queryset = ArticleSection.objects.filter(category=category_id)
         else:
             queryset = ArticleSection.objects.all()
     

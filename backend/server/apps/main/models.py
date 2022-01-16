@@ -29,7 +29,7 @@ class Category(models.Model):
 
 
 class ArticleSection(models.Model):
-    category = models.ForeignKey(Category, related_name="article_categories", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="sections", on_delete=models.CASCADE)
     section = models.CharField(max_length=160)
     is_visible = models.BooleanField(default=True)
     
