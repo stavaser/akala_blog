@@ -46,7 +46,7 @@ class ArticleViewSet(viewsets.ViewSet):
         else:
             queryset = Article.objects.all()
     
-        serializer = ArticleSerializer(queryset, many=True)
+        serializer = ArticleSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     def partial_update(self, request):
