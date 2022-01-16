@@ -24,12 +24,38 @@ const ContentsTable = ({ headings, activeId = 0 }) => {
             <Step
               key={heading.title}
               className={heading.title === activeId ? 'active' : ''}
-              title={heading.title}
+              title={
+                <a
+                  href={`#${heading.title}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector(`#${heading.title}`).scrollIntoView({
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
+                  {heading.title}
+                </a>
+              }
               description={
                 heading.items.length > 0 && (
                   <div className="sections">
                     {heading.items.map((child) => (
-                      <p>{child.title}</p>
+                      <p>
+                        <a
+                          href={`#${child.title}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                              .querySelector(`#${child.title}`)
+                              .scrollIntoView({
+                                behavior: 'smooth',
+                              });
+                          }}
+                        >
+                          {child.title}
+                        </a>
+                      </p>
                     ))}
                   </div>
                 )

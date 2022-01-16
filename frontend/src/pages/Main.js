@@ -1,5 +1,9 @@
 import { Tabs } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
+import { Markup } from 'interweave';
+
 import ArticleCard from '../components/ArticleCard/ArticleCard';
 import {
   StyledLayout,
@@ -7,6 +11,7 @@ import {
   Content,
 } from '../components/shared/Layout.styled';
 import Sections from '../components/shared/Sections';
+import { getAllArticles } from '../redux/actions/article.actions';
 const { TabPane } = Tabs;
 const DummyText =
   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -19,6 +24,15 @@ const truncate = (str, n = 300) => {
   return subString.substr(0, subString.lastIndexOf(' ')) + '...';
 };
 const Main = () => {
+  const articles = useSelector((state) => state.article.list);
+  const location = useLocation();
+  const category_id = location.state.category_id;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllArticles(category_id));
+  }, []);
+  console.log(articles);
   return (
     <StyledLayout>
       <Sider>
@@ -42,69 +56,18 @@ const Main = () => {
             </h1>
           </TabPane>
         </Tabs>
-
-        <ArticleCard
-          id={1}
-          image={
-            'https://media.istockphoto.com/photos/piano-keyboard-of-an-old-music-instrument-close-up-picture-id641307550?k=20&m=641307550&s=612x612&w=0&h=gKlkkcbL4RorlF24oNjjGv0kkZxFzUW8V9sjtJf2o2w='
-          }
-          title="Piano Lalalala"
-          date="Jan 5, 2022"
-          likes={5}
-          comments={1}
-          tags={['piano', 'music', 'notes']}
-          body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
-          screen_mode
-        />
-        <ArticleCard
-          id={1}
-          image={
-            'https://media.istockphoto.com/photos/piano-keyboard-of-an-old-music-instrument-close-up-picture-id641307550?k=20&m=641307550&s=612x612&w=0&h=gKlkkcbL4RorlF24oNjjGv0kkZxFzUW8V9sjtJf2o2w='
-          }
-          title="Piano Lalalala"
-          date="Jan 5"
-          likes={5}
-          comments={1}
-          tags={['piano', 'music', 'notes']}
-          body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
-          screen_mode
-        />
-        <ArticleCard
-          id={1}
-          image={
-            'https://media.istockphoto.com/photos/piano-keyboard-of-an-old-music-instrument-close-up-picture-id641307550?k=20&m=641307550&s=612x612&w=0&h=gKlkkcbL4RorlF24oNjjGv0kkZxFzUW8V9sjtJf2o2w='
-          }
-          title="Piano Lalalala"
-          date="Jan 5"
-          likes={5}
-          comments={1}
-          tags={['piano', 'music', 'notes']}
-          body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
-          screen_mode
-        />
-        <ArticleCard
-          id={1}
-          image={
-            'https://media.istockphoto.com/photos/piano-keyboard-of-an-old-music-instrument-close-up-picture-id641307550?k=20&m=641307550&s=612x612&w=0&h=gKlkkcbL4RorlF24oNjjGv0kkZxFzUW8V9sjtJf2o2w='
-          }
-          title="Piano Lalalala"
-          date="Jan 5"
-          likes={5}
-          comments={1}
-          tags={['piano', 'music', 'notes']}
-          body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
-          screen_mode
-        />
-        <ArticleCard
-          id={2}
-          title="Piano Lalalala"
-          date="Jan 5"
-          likes={5}
-          comments={1}
-          tags={['piano', 'music', 'notes']}
-          body="habdjha ahsfdbshabdfs hasdbjhsadkhasd"
-          screen_mode
-        />
+        {articles &&
+          articles.map((item) => {
+            return (
+              <ArticleCard
+                id={item.id}
+                image={item.image}
+                title={item.title}
+                date={item.str_date}
+                body={<Markup content={truncate(item.text)} />}
+              />
+            );
+          })}
       </Content>
       <Sider />
     </StyledLayout>

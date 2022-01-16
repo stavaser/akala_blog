@@ -6,7 +6,7 @@ import Burger from '../Burger/Burger';
 import Menu from '../Menu/Menu';
 import { StyledHeader } from './Header.styled';
 import { Link } from 'react-router-dom';
-const Header = () => {
+const Header = ({ categories }) => {
   const [open, setOpen] = useState(false);
   const node = useRef();
   const menuId = 'main-menu';
@@ -35,7 +35,12 @@ const Header = () => {
           <div className="burger">
             <FocusLock disabled={!open}>
               <Burger open={open} setOpen={setOpen} aria-controls={menuId} />
-              <Menu open={open} setOpen={setOpen} id={menuId} />
+              <Menu
+                categories={categories}
+                open={open}
+                setOpen={setOpen}
+                id={menuId}
+              />
             </FocusLock>
           </div>
         </div>

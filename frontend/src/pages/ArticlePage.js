@@ -25,6 +25,7 @@ const TableOfContents = () => {
   const { nestedHeadings } = useHeadingsData();
   useIntersectionObserver(setActiveId);
 
+  // return <Headings headings={nestedHeadings} activeId={activeId} />;
   return <ContentsTable headings={nestedHeadings} activeId={activeId} />;
 };
 // console.log()

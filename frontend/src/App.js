@@ -18,13 +18,21 @@ import {
 } from './components/shared/Layout.styled';
 import ArticlePage from './pages/ArticlePage';
 import Footer from './components/Footer/Footer';
+import { getCategories } from './redux/actions/nav.actions';
 const App = () => {
+  const categories = useSelector((state) => state.nav.categories);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
   return (
     <div>
-      <Header />
+      <Header categories={categories} />
 
       <Routes>
         <Route exact path={'/'} element={<Main />} />
+        <Route exact path={'/:category'} element={<Main />} />
         <Route exact path={'/article/:id'} element={<ArticlePage />} />
         <Route exact path={'/studentPortrait'} element={StudentPortrait} />
       </Routes>

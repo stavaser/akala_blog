@@ -16,7 +16,7 @@ const Headings = ({ headings, activeId }) => (
             });
           }}
         >
-          {heading.title}
+          {heading.id}
         </a>
         {heading.items.length > 0 && (
           <ul>
