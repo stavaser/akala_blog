@@ -20,4 +20,8 @@ export const StyledContentsTable = styled.div`
   p:hover {
     text-decoration: underline;
   }
+
+  p.active {
+    font-weight: 900;
+  }
 `;

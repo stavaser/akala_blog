@@ -73,7 +73,7 @@ export const useIntersectionObserver = (setActiveId) => {
 
     const observer = new IntersectionObserver(callback, {
       root: document.querySelector('iframe'),
-      rootMargin: '500px',
+      rootMargin: '-20px',
     });
 
     const headingElements = Array.from(document.querySelectorAll('h2, h3'));
