@@ -1,6 +1,7 @@
 // credits: https://www.emgoto.com/react-table-of-contents/
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router';
 import { StyledArticle } from './Article.styled';
 import Headings from './Headings';
 import { useIntersectionObserver, useHeadingsData } from './utils';

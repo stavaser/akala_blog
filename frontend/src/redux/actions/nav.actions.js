@@ -11,20 +11,6 @@ export const getCategories = () => async (dispatch) => {
       type: CATEGORIES_REQUESTED,
       payload: res.data,
     });
-
-    return Promise.resolve(res.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
-export const getSections = () => async (dispatch) => {
-  try {
-    const res = await NavService.getSections();
-    dispatch({
-      type: SECTIONS_REQUESTED,
-      payload: res.data,
-    });
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);

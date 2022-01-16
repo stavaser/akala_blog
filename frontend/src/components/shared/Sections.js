@@ -1,36 +1,26 @@
 import { Divider, Tabs } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyledSectios } from './Sections.styled';
 import { ArrowRightOutlined } from '@ant-design/icons';
 
-const { TabPane } = Tabs;
-
-const items = [
-  'spotlight schools',
-  'community service',
-  'articles',
-  'standardized testing',
-];
-const Sections = () => {
+const Sections = ({ data }) => {
   return (
     <StyledSectios>
-      <h1>College Admissions</h1>
-      <p>
-        Check out the most-read and most-shared posts from the GOAKALA blog!
-      </p>
+      <h1>{data?.emoji + ' ' + data?.category}</h1>
+      <p>{data?.description}</p>
       <Divider />
-      {/* <h3>Categories:</h3> */}
       <ul>
-        {items.map((item) => {
-          return (
-            <a>
-              <li>
-                <ArrowRightOutlined style={{ marginRight: '10px' }} />
-                {item}
-              </li>
-            </a>
-          );
-        })}
+        {data.sections &&
+          data.sections.map((item) => {
+            return (
+              <a>
+                <li>
+                  <ArrowRightOutlined style={{ marginRight: '10px' }} />
+                  {item.section}
+                </li>
+              </a>
+            );
+          })}
       </ul>
     </StyledSectios>
   );
