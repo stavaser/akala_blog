@@ -9,7 +9,7 @@ export const StyledArticleCard = styled.div`
   border-radius: 1em;
   display: flex;
   flex-direction: column;
-  padding-top: ${({ hasImage }) => (hasImage ? 0 : '26px')};
+  /* padding-top: ${({ hasImage }) => (hasImage ? 0 : '26px')}; */
   .article-image-container {
     height: 50%;
   }
@@ -44,5 +44,23 @@ export const StyledArticleCard = styled.div`
   .article-info {
     display: flex;
     justify-content: space-between;
+  }
+`;
+
+export const StyledImagePlaceholder = styled.div`
+  background-color: orange;
+  width: 100%;
+  height: 40vh;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  position: relative;
+
+  h1 {
+    color: #fff;
+    font-size: 80px;
+    line-height: 80px;
+    opacity: 0.5;
+    position: absolute;
+    bottom: -30px;
   }
 `;

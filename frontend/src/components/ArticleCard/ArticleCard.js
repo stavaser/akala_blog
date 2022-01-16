@@ -2,7 +2,10 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 import { Badge } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledArticleCard } from './ArticleCard.styled';
+import {
+  StyledArticleCard,
+  StyledImagePlaceholder,
+} from './ArticleCard.styled';
 
 const ArticleCard = ({
   id,
@@ -26,7 +29,13 @@ const ArticleCard = ({
             pathname: `/article/${id}`,
           }}
         >
-          {image ? <img className="article-image" src={image} /> : null}
+          {image ? (
+            <img className="article-image" src={image} />
+          ) : (
+            <StyledImagePlaceholder>
+              <h1>jhdakjsda ajksdhja ashdkashd ajsdhkjas akshdj</h1>
+            </StyledImagePlaceholder>
+          )}
         </Link>
 
         <div className="article-body">
