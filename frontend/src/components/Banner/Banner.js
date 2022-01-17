@@ -3,13 +3,22 @@ import React from 'react';
 import { StyledBanner } from './Banner.styled';
 const { TabPane } = Tabs;
 const Banner = ({ title, subtitle }) => {
-  const animate = (text) => {
-    return text.split('').forEach((character) => <span>{character}</span>);
-  };
-
+  console.log(title?.length);
   return (
-    <StyledBanner>
-      <h1>{title}</h1>
+    <StyledBanner numLetters={title?.length}>
+      <h1>
+        {title?.split(' ').map((word) => {
+          return (
+            <>
+              {word?.split('').map((letter, idx) => {
+                return <span>{letter}</span>;
+              })}
+              <br />
+            </>
+          );
+        })}
+      </h1>
+      {/* style={{ animationDelay: `${idx * 4}s` }} */}
       <h3>{subtitle}</h3>
     </StyledBanner>
   );

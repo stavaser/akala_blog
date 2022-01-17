@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { StyledSectios } from './Sections.styled';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { CATEGORY_CHANGED } from '../../redux/constants/nav.constants';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const { Panel } = Collapse;
 
 const Sections = ({ data }) => {
+  const current_category = useSelector((state) => state.nav.category);
+
   const dispatch = useDispatch();
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(current_category.order);
 
   const changeCategory = (category) => {
     dispatch({

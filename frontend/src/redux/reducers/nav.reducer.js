@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   categories: [],
-  category: { id: 1 },
+  category: { id: 1, order: 1 },
 };
 
 const navReducer = (state = initialState, action) => {

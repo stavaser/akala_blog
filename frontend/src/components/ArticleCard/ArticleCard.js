@@ -4,6 +4,7 @@ import { Markup } from 'interweave';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { ARTICLE_INFO_REQUESTED } from '../../redux/constants/article.constants';
 import {
   StyledArticleCard,
   StyledImagePlaceholder,
@@ -19,7 +20,7 @@ const truncate = (str, n = 300) => {
 
 const ArticleCard = ({ data }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   return (
     // <Badge.Ribbon
     //   text="Standardized Testing"
@@ -51,6 +52,12 @@ const ArticleCard = ({ data }) => {
 
         <h1>
           <Link
+            onClick={() =>
+              dispatch({
+                type: ARTICLE_INFO_REQUESTED,
+                payload: data,
+              })
+            }
             to={{
               pathname: `/article/${data.id}`,
             }}

@@ -36,11 +36,11 @@ const DummyText =
   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
 const ArticlePage = () => {
-  const articles = useSelector((state) => state.article.list);
+  const article = useSelector((state) => state.article.info);
 
-  const params = useParams();
-  const article_id = params.id - 1;
-  const data = articles[article_id];
+  // const params = useParams();
+  // const article_id = params.id - 1;
+  // const data = articles[article_id];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -58,13 +58,13 @@ const ArticlePage = () => {
             <main>
               <img
                 src={
-                  data.image
-                    ? data.image
+                  article.image
+                    ? article.image
                     : `https://picsum.photos/800/300/?random`
                 }
               />
               <div className="content">
-                <h1>{data.title}</h1>
+                <h1>{article.title}</h1>
 
                 {/* <h2 title="big" id={0}>
                   big
@@ -86,7 +86,7 @@ const ArticlePage = () => {
                 <h3 title="Fifth header" id={5}>
                   Fifth header
                 </h3> */}
-                <Markup content={data.text} />
+                <Markup content={article.text} />
               </div>
             </main>
           </div>
