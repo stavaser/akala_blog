@@ -2,21 +2,15 @@ import { Tabs, Timeline } from 'antd';
 import React from 'react';
 import { StyledBanner } from './Banner.styled';
 const { TabPane } = Tabs;
-const Banner = () => {
+const Banner = ({ title, subtitle }) => {
+  const animate = (text) => {
+    return text.split('').forEach((character) => <span>{character}</span>);
+  };
+
   return (
     <StyledBanner>
-      <h1>College Admissions</h1>
-      <Tabs defaultActiveKey="1" tabPosition="bottom">
-        <TabPane tab="Tab 1" key="1">
-          Content of Tab Pane 1
-        </TabPane>
-        <TabPane tab="Tab 2" key="2">
-          Content of Tab Pane 2
-        </TabPane>
-        <TabPane tab="Tab 3" key="3">
-          Content of Tab Pane 3
-        </TabPane>
-      </Tabs>
+      <h1>{title}</h1>
+      <h3>{subtitle}</h3>
     </StyledBanner>
   );
 };

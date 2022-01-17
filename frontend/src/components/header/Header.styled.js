@@ -20,6 +20,9 @@ export const StyledHeader = styled.div`
     justify-content: space-between;
   }
   .logo {
+    /* display: inline-block;
+    font-family: OrangeJuice;
+    line-height: 30px; */
     font-size: 20px;
     font-weight: 900;
     cursor: pointer;

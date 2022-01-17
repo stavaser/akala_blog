@@ -3,3 +3,11 @@
   src: url('./fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf')
     format('truetype');
 }
+@font-face {
+  font-family: OrangeJuice;
+  src: url('./fonts/orange-juice/orange\ juice\ 2.0.ttf') format('truetype');
+}
+@font-face {
+  font-family: AlphaKids;
+  src: url('./fonts/alpha-kids/AlphaKids-Regular.ttf') format('truetype');
+}

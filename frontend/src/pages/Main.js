@@ -12,12 +12,12 @@ import {
 } from '../components/shared/Layout.styled';
 import Sections from '../components/shared/Sections';
 import { getAllArticles } from '../redux/actions/article.actions';
+import Banner from '../components/Banner/Banner';
 const { TabPane } = Tabs;
 
 const Main = ({ data }) => {
   const articles = useSelector((state) => state.article.list);
   const category = useSelector((state) => state.nav.category);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,21 +32,16 @@ const Main = ({ data }) => {
       <Content>
         <Tabs defaultActiveKey="1" type="card" style={{ marginTop: '20px' }}>
           <TabPane tab="All posts" key="1">
-            <h1 style={{ marginBottom: '20px' }}>
-              All posts in {category.category}
-            </h1>
+            <Banner title={category.category} />
           </TabPane>
           <TabPane tab="Latest" key="2">
-            <h1 style={{ marginBottom: '20px' }}>
-              Latest posts in {category.category}
-            </h1>
+            <Banner title={category.category} />
           </TabPane>
           <TabPane tab="Most popular" key="3">
-            <h1 style={{ marginBottom: '20px' }}>
-              Most popular posts in {category.category}
-            </h1>
+            <Banner title={category.category} />
           </TabPane>
         </Tabs>
+
         {articles &&
           articles.map((item) => {
             return <ArticleCard data={item} />;

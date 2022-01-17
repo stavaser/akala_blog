@@ -2,15 +2,25 @@ import { Divider, Collapse } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { StyledSectios } from './Sections.styled';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { CATEGORY_CHANGED } from '../../redux/constants/nav.constants';
+import { useDispatch } from 'react-redux';
 
 const { Panel } = Collapse;
 
 const Sections = ({ data }) => {
-  const [active, setActive] = useState(0);
-  console.log(active);
+  const dispatch = useDispatch();
+  const [active, setActive] = useState(1);
+
+  const changeCategory = (category) => {
+    dispatch({
+      type: CATEGORY_CHANGED,
+      payload: category,
+    });
+    setActive(category.order);
+  };
   return (
     <StyledSectios>
-      <Collapse ghost accordion>
+      <Collapse ghost accordion defaultActiveKey={active}>
         {data &&
           data.map((category) => {
             return (
@@ -18,9 +28,11 @@ const Sections = ({ data }) => {
                 header={
                   <>
                     <a
-                      onClick={() => setActive(category.id)}
+                      onClick={() => changeCategory(category)}
                       className={
-                        category.id == active ? 'active category' : 'category'
+                        category.order == active
+                          ? 'active category'
+                          : 'category'
                       }
                     >
                       {category.emoji + ' ' + category.category}
@@ -41,7 +53,7 @@ const Sections = ({ data }) => {
                     </a>
                   </>
                 }
-                key={category.id}
+                key={category.order}
               >
                 <p>{category.description}</p>
                 <Divider />
@@ -59,28 +71,6 @@ const Sections = ({ data }) => {
               </Panel>
             );
           })}
-        {/* <Panel
-          header={
-            <>
-              <h1>{data?.emoji + ' ' + data?.category}</h1>
-            </>
-          }
-          key="1"
-        >
-          <p>{data?.description}</p>
-          <Divider />
-          {data.sections &&
-            data.sections.map((item) => {
-              return (
-                <a>
-                  <li>
-                    <ArrowRightOutlined style={{ marginRight: '10px' }} />
-                    {item.section}
-                  </li>
-                </a>
-              );
-            })}
-        </Panel> */}
       </Collapse>
     </StyledSectios>
   );

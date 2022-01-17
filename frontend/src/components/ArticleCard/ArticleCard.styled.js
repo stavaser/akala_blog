@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import notebook from '../../assets/images/notebook.jpg';
 
 export const StyledArticleCard = styled.div`
   background-color: ${({ theme }) => theme.white};
@@ -24,6 +25,8 @@ export const StyledArticleCard = styled.div`
   .article-body {
     flex-grow: 2;
     padding: 20px 40px;
+    /* background-image: url(${notebook});
+    background-size: cover; */
   }
   .article-body h4 {
     color: ${({ theme }) => theme.green};

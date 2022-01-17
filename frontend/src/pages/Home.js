@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ArticleCard from '../components/ArticleCard/ArticleCard';
-import { StyledBanner } from '../components/shared/Banner.styled';
+import Banner from '../components/Banner/Banner';
 import {
   Content,
   Sider,
@@ -25,24 +25,7 @@ const Home = ({ data }) => {
       <Sider>
         <Sections data={data} />
       </Sider>
-      <Content>
-        <StyledBanner>
-          {/* <img src="https://goakala.files.wordpress.com/2020/12/cropped-akala-black.jpeg" /> */}
-          <p>
-            We are AKALA, an AI-enabled College Admissions Counseling platform
-            that helps students navigate the complicated journey to college. Our
-            mission: To give every student, regardless of background, access to
-            high-quality college admissions guidance. Also, learn about our work
-            throughout the country in the under-resourced communities. Check out
-            our website: http://www.EquityInAccess.org Watch our video!
-          </p>
-          <h1>Most Recent Posts:</h1>
-          {articles &&
-            articles.map((item) => {
-              return <ArticleCard data={item} />;
-            })}
-        </StyledBanner>
-      </Content>
+      <Content></Content>
       <Sider />
     </StyledLayout>
   );
