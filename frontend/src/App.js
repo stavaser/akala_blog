@@ -19,6 +19,8 @@ import {
 import ArticlePage from './pages/ArticlePage';
 import Footer from './components/Footer/Footer';
 import { getCategories } from './redux/actions/nav.actions';
+import Home from './pages/Home';
+import Sections from './components/shared/Sections';
 const App = () => {
   const categories = useSelector((state) => state.nav.categories);
   const dispatch = useDispatch();
@@ -29,12 +31,12 @@ const App = () => {
   return (
     <div>
       <Header categories={categories} />
-
       <Routes>
-        <Route exact path={'/'} element={<Main />} />
+        <Route exact path={'/'} element={<Main data={categories} />} />
+        <Route exact path={'/home'} element={<Home data={categories} />} />
         <Route exact path={'/:category'} element={<Main />} />
         <Route exact path={'/article/:id'} element={<ArticlePage />} />
-        <Route exact path={'/studentPortrait'} element={StudentPortrait} />
+        <Route exact path={'/studentPortrait'} element={<StudentPortrait />} />
       </Routes>
 
       <Footer />

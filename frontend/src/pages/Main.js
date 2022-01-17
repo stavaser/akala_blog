@@ -14,7 +14,7 @@ import Sections from '../components/shared/Sections';
 import { getAllArticles } from '../redux/actions/article.actions';
 const { TabPane } = Tabs;
 
-const Main = () => {
+const Main = ({ data }) => {
   const articles = useSelector((state) => state.article.list);
   const category = useSelector((state) => state.nav.category);
 
@@ -27,7 +27,7 @@ const Main = () => {
   return (
     <StyledLayout>
       <Sider>
-        <Sections data={category} />
+        <Sections data={data} />
       </Sider>
       <Content>
         <Tabs defaultActiveKey="1" type="card" style={{ marginTop: '20px' }}>

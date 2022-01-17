@@ -23,7 +23,7 @@ export const StyledArticleCard = styled.div`
 
   .article-body {
     flex-grow: 2;
-    padding: 1em;
+    padding: 20px 40px;
   }
   .article-body h4 {
     color: ${({ theme }) => theme.green};
@@ -44,6 +44,17 @@ export const StyledArticleCard = styled.div`
   .article-info {
     display: flex;
     justify-content: space-between;
+  }
+
+  .markup h1,
+  h2,
+  h3,
+  br {
+    display: none;
+  }
+
+  .markup p {
+    margin: 0;
   }
 `;
 

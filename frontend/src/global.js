@@ -31,5 +31,6 @@ export const GlobalStyles = createGlobalStyle`
     
   a:hover {
     color: ${({ theme }) => theme.primaryHover};
+    text-decoration: none;
   }
 `;

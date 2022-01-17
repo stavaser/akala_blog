@@ -21,50 +21,49 @@ const ArticleCard = ({ data }) => {
   const navigate = useNavigate();
 
   return (
-    <Badge.Ribbon
-      text="Standardized Testing"
-      color="#d7b221"
-      style={{ borderRadius: '2px' }}
-    >
-      <StyledArticleCard hasImage={data.image}>
-        <Link
-          className="article-image-container"
-          to={{
-            pathname: `/article/${data.id}`,
-          }}
-        >
-          {data.image ? (
-            <img className="article-image" src={data.image} />
-          ) : (
-            <StyledImagePlaceholder>
-              <h1>jhdakjsda ajksdhja ashdkashd ajsdhkjas akshdj</h1>
-            </StyledImagePlaceholder>
-          )}
-        </Link>
+    // <Badge.Ribbon
+    //   text="Standardized Testing"
+    //   color="#d7b221"
+    //   style={{ borderRadius: '2px' }}
+    // >
+    <StyledArticleCard hasImage={data.image}>
+      <Link
+        className="article-image-container"
+        to={{
+          pathname: `/article/${data.id}`,
+        }}
+      >
+        {
+          data.image ? <img className="article-image" src={data.image} /> : null
+          // <StyledImagePlaceholder>
+          //   <h1>{data.title}</h1>
+          // </StyledImagePlaceholder>
+        }
+      </Link>
 
-        <div className="article-body">
-          <div className="article-info">
-            <h4>{data.str_date}</h4>
-            <h4>
-              <ClockCircleOutlined /> 4 min read
-            </h4>
-          </div>
-
-          <h1>
-            <Link
-              to={{
-                pathname: `/article/${data.id}`,
-              }}
-            >
-              {data.title}
-            </Link>
-          </h1>
-          <p>
-            <Markup content={truncate(data.text)} />
-          </p>
+      <div className="article-body">
+        <div className="article-info">
+          <h4>Standardized Testing / {data.str_date}</h4>
+          <h4>
+            <ClockCircleOutlined /> 4 min read
+          </h4>
         </div>
-      </StyledArticleCard>
-    </Badge.Ribbon>
+
+        <h1>
+          <Link
+            to={{
+              pathname: `/article/${data.id}`,
+            }}
+          >
+            {data.title}
+          </Link>
+        </h1>
+        <p>
+          <Markup className="markup" content={truncate(data.text)} />
+        </p>
+      </div>
+    </StyledArticleCard>
+    // </Badge.Ribbon>
   );
 };
 
