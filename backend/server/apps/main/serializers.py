@@ -30,6 +30,10 @@ class PromptSerializer(serializers.ModelSerializer):
 
 class PromptAnswerSerializer(serializers.ModelSerializer):
     # prompts = PromptSerializer(many=True)
+    # video_file_path = serializers.SerializerMethodField('get_path')
+
+    # def get_path(self, obj):
+    #     return self.context['request'].build_absolute_uri(obj.video_file)
     
     class Meta:
         model = PromptAnswer

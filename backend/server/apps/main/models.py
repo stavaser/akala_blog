@@ -106,11 +106,14 @@ class Article(models.Model):
         return self.section.category.category + " / " + self.section.section + " / " + self.title + " / " + self.date.strftime("%d %b, %Y")
 
 
-def prompt_video_path(self):
-    return 'media/prompts/prompt_{0}/answer_{1}/'.format(self.prompt.id, self.id)
+def prompt_video_path(self, dir = True):
+    if dir:
+        return 'media/prompts/prompt_{0}/answer_{1}/'.format(self.prompt.id, self.id)
+    else:
+        return 'media/prompts/prompt_{0}/answer_{1}/video.mp4'.format(self.prompt.id, self.id)
 
-def prompt_image_path(self, filename):
-    return 'media/prompts/prompt_{0}/answer_{1}/{2}'.format(self.prompt.id, self.id, filename)
+def prompt_image_path(self):
+    return 'media/prompts/prompt_{0}/answer_{1}/'.format(self.prompt.id, self.id)
 
 
 class Prompt(models.Model):
@@ -126,19 +129,20 @@ def download_video(self):
         f.write(rsp.read())
     return prompt_video_path(self) + "video.mp4"
 
-def get_thumbnail(self):
+def get_thumbnail(self, url):
     file_name = os.path.join(target_directory(prompt_image_path(self)), "thumbnail.jpg")
-    rsp = urllib.request.urlopen(self.video_link)
+    rsp = urllib.request.urlopen(url)
     with open(file_name,'wb') as f:
         f.write(rsp.read())
-    return file_name
+    return prompt_video_path(self) + "thumbnail.jpg"
 
 class PromptAnswer(models.Model):
     prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="prompts")
     submitted_by = models.CharField(max_length=160)
-    download = models.BooleanField(default=False)
+    # need_download = models.BooleanField(default=False)
     is_youtube = models.BooleanField(default=True)
     video_link = models.CharField(max_length=160, blank=True, null=True)
+    thumbnail_link = models.CharField(max_length=160, blank=True, null=True)
     thumbnail = models.ImageField(upload_to=prompt_image_path, height_field=None, width_field=None, blank=True, null=True)
     video_file = models.FileField(upload_to=prompt_video_path, blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
     
@@ -146,16 +150,18 @@ class PromptAnswer(models.Model):
         return '{0} - {1}'.format(self.submitted_by, self.prompt.title)
     
     def save(self, *args, **kwargs):
-        if self.download and self.id is None:
+        if self.id is None:
             saved_video = self.video_file
             self.video_file = None
             super(PromptAnswer, self).save(*args, **kwargs)
             if self.is_youtube:
                 yt = YouTube(self.video_link)
-                self.video_file = yt.streams.filter(progressive=True).order_by('resolution').desc().first().download(output_path=prompt_video_path(self))
-                # self.thumbnail = urllib.request.urlretrieve(yt.thumbnail_url)
+                yt.streams.filter(progressive=True).order_by('resolution').desc().first().download(output_path=prompt_video_path(self), filename="video.mp4")
+                self.video_file = prompt_video_path(self, dir=False)
+                self.thumbnail = get_thumbnail(self, yt.thumbnail_url)
             else:
                 self.video_file = download_video(self)
+                self.thumbnail = get_thumbnail(self, self.thumbnail_link)
 
             if 'force_insert' in kwargs:
                 kwargs.pop('force_insert')
