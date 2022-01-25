@@ -92,3 +92,12 @@ class ArticleSectionViewSet(viewsets.ViewSet):
     
         serializer = ArticleSectionSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+
+class PromptAnswerViewSet(viewsets.ViewSet):
+    def list(self, request):
+        queryset = PromptAnswer.objects.all()
+    
+        serializer = PromptAnswerSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)

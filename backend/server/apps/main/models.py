@@ -2,7 +2,16 @@
 from django.db import models
 from ckeditor.fields import RichTextField 
 from datetime import datetime
+from django.core.validators import FileExtensionValidator
 import re
+import urllib.request
+import requests
+from pytube import YouTube
+from pytube.helpers import safe_filename, target_directory
+import os
+from urllib.error import HTTPError
+from pytube import extract, request
+
 
 def title_case(s):
     return re.sub(r"[A-Za-z]+('[A-Za-z]+)?",
@@ -11,6 +20,15 @@ def title_case(s):
 def get_reading_time(num):
     return 10
 
+# def get_youtube_id(url):
+#     u_pars = urlparse(url)
+#     quer_v = parse_qs(u_pars.query).get('v')
+#     if quer_v:
+#         return quer_v[0]
+#     pth = u_pars.path.split('/')
+#     if pth:
+#         return pth[-1]
+
 class Category(models.Model):
     category = models.CharField(max_length=160)
     emoji = models.CharField(max_length=100)
@@ -18,7 +36,6 @@ class Category(models.Model):
     is_visible = models.BooleanField(default=True)
     order = models.PositiveSmallIntegerField(default=1)
 
-   
 
     def __str__(self):
         return self.category
@@ -87,3 +104,60 @@ class Article(models.Model):
 
     def __str__(self):
         return self.section.category.category + " / " + self.section.section + " / " + self.title + " / " + self.date.strftime("%d %b, %Y")
+
+
+def prompt_video_path(self):
+    return 'media/prompts/prompt_{0}/answer_{1}/'.format(self.prompt.id, self.id)
+
+def prompt_image_path(self, filename):
+    return 'media/prompts/prompt_{0}/answer_{1}/{2}'.format(self.prompt.id, self.id, filename)
+
+
+class Prompt(models.Model):
+    title = models.CharField(max_length=160)
+
+    def __str__(self):
+        return self.title
+
+def download_video(self):
+    file_name = os.path.join(target_directory(prompt_video_path(self)), "video.mp4")
+    rsp = urllib.request.urlopen(self.video_link)
+    with open(file_name,'wb') as f:
+        f.write(rsp.read())
+    return prompt_video_path(self) + "video.mp4"
+
+def get_thumbnail(self):
+    file_name = os.path.join(target_directory(prompt_image_path(self)), "thumbnail.jpg")
+    rsp = urllib.request.urlopen(self.video_link)
+    with open(file_name,'wb') as f:
+        f.write(rsp.read())
+    return file_name
+
+class PromptAnswer(models.Model):
+    prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="prompts")
+    submitted_by = models.CharField(max_length=160)
+    download = models.BooleanField(default=False)
+    is_youtube = models.BooleanField(default=True)
+    video_link = models.CharField(max_length=160, blank=True, null=True)
+    thumbnail = models.ImageField(upload_to=prompt_image_path, height_field=None, width_field=None, blank=True, null=True)
+    video_file = models.FileField(upload_to=prompt_video_path, blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+    
+    def __str__(self):
+        return '{0} - {1}'.format(self.submitted_by, self.prompt.title)
+    
+    def save(self, *args, **kwargs):
+        if self.download and self.id is None:
+            saved_video = self.video_file
+            self.video_file = None
+            super(PromptAnswer, self).save(*args, **kwargs)
+            if self.is_youtube:
+                yt = YouTube(self.video_link)
+                self.video_file = yt.streams.filter(progressive=True).order_by('resolution').desc().first().download(output_path=prompt_video_path(self))
+                # self.thumbnail = urllib.request.urlretrieve(yt.thumbnail_url)
+            else:
+                self.video_file = download_video(self)
+
+            if 'force_insert' in kwargs:
+                kwargs.pop('force_insert')
+
+        super(PromptAnswer, self).save(*args, **kwargs)

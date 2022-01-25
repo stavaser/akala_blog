@@ -15,4 +15,8 @@ urlpatterns = [
         {
             'get': 'list',
         })),
+    path("prompts/", PromptAnswerViewSet.as_view(
+        {
+            'get': 'list',
+        })),
 ]

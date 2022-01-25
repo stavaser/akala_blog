@@ -23,3 +23,14 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = '__all__'
 
+class PromptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prompt
+        fields = '__all__'
+
+class PromptAnswerSerializer(serializers.ModelSerializer):
+    # prompts = PromptSerializer(many=True)
+    
+    class Meta:
+        model = PromptAnswer
+        fields = '__all__'
