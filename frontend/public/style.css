@@ -11,3 +11,7 @@
   font-family: AlphaKids;
   src: url('./fonts/alpha-kids/AlphaKids-Regular.ttf') format('truetype');
 }
+@font-face {
+  font-family: Cinema;
+  src: url('./fonts/cinema/cinema_st.ttf') format('truetype');
+}

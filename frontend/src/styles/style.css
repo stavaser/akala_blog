@@ -91,14 +91,16 @@ h4 {
 }
 
 .portrait-banner {
-  background-image: url('https://www.pbs.org/american-portrait/vault/22625/thumbs/SXNQdWJsaWM9MSZNb2RlPVImT3V0cHV0Rm9ybWF0PWpwZyZRdWFsaXR5PTYwJlJlc1g9MjY1MCZWYXVsdElEPTIyNjI1JnR0bD0zNDU2MDAmdnR0cz0yMDIxLTA2LTMwKzEzJTNBMzclM0EyNg==.jpg');
+  background-color: #57745a;
+  /* background-image: url('https://www.pbs.org/american-portrait/vault/22625/thumbs/SXNQdWJsaWM9MSZNb2RlPVImT3V0cHV0Rm9ybWF0PWpwZyZRdWFsaXR5PTYwJlJlc1g9MjY1MCZWYXVsdElEPTIyNjI1JnR0bD0zNDU2MDAmdnR0cz0yMDIxLTA2LTMwKzEzJTNBMzclM0EyNg==.jpg'); */
   background-size: cover;
   text-align: center;
   padding: 50px 100px;
 }
 
 .portrait-banner h1 {
-  font-size: 50px;
+  font-family: Cinema;
+  font-size: 80px;
   color: white;
 }
 .portrait-banner p {
@@ -149,7 +151,7 @@ h4 {
   letter-spacing: 0.01em;
   font-weight: 400;
   font-style: normal;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .prompt-content {

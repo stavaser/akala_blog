@@ -1,4 +1,5 @@
 // credits: https://www.emgoto.com/react-table-of-contents/
+import '../styles/style.css';
 
 import { Timeline, Steps, Divider } from 'antd';
 import { Markup } from 'interweave';

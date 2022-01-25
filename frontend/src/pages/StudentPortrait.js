@@ -5,20 +5,19 @@ import { Button, Collapse, Input, Layout, Modal, Select } from 'antd';
 import ReactPlayer from 'react-player/youtube';
 import { Carousel } from '3d-react-carousal';
 import WidthListener from '../components/WidthListener';
-import {
-  DESKTOP,
-  MOBILE,
-  SCREEN_CHANGED,
-  TABLET,
-} from '../redux/constants/screen.constants';
+
+import { DESKTOP, MOBILE, SCREEN_CHANGED, TABLET } from '../redux/constants/screen.constants';
 import { changeScreenMode } from '../redux/actions/screen.actions';
 import Prompt from '../components/Prompt';
+import { getAllPrompts } from '../redux/actions/prompt.actions';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Panel } = Collapse;
 const { Option } = Select;
 
 const StudentPortrait = () => {
+  const prompts = useSelector((state) => state.prompt.list);
+
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,6 +34,7 @@ const StudentPortrait = () => {
     setIsModalVisible(false);
   };
   useEffect(() => {
+    dispatch(getAllPrompts());
     function handleResize() {
       setWidth(window.innerWidth);
     }
@@ -42,20 +42,7 @@ const StudentPortrait = () => {
     dispatch(changeScreenMode(width));
     return () => window.removeEventListener('resize', handleResize);
   }, [width]);
-
-  const menu_items = [
-    { title: 'Home', icon: '🏠' },
-    { title: 'Standardized Testing', icon: '📝' },
-    { title: "Barbara's Corner", icon: '💜' },
-    { title: 'College Admissions', icon: '🎓' },
-    { title: 'AKALA students', icon: '🧑🏻‍🤝‍🧑🏾' },
-    { title: 'Amazing Opportunities!!', icon: '🌟' },
-    { title: 'Calling All Podcast Lovers!', icon: '🎧' },
-    { title: 'About Us', icon: 'ℹ️' },
-    { title: 'Contact', icon: '☎️' },
-    { title: 'Just For Fun!!', icon: '🤪' },
-  ];
-
+  console.log(prompts);
   const questions = [
     {
       title: 'The meaning of work is…',
@@ -83,7 +70,7 @@ const StudentPortrait = () => {
     { title: 'Question Compilations', videos: [] },
   ];
 
-  const prompts = [
+  const prompts2 = [
     'Looking ahead, I',
     ' My life right now',
     'To me, work means',
@@ -116,7 +103,7 @@ const StudentPortrait = () => {
           //   defaultValue="Choose your prompt"
           style={{ width: '100%', marginBottom: '20px' }}
         >
-          {prompts.map((prompt) => {
+          {prompts2.map((prompt) => {
             return <Option value={prompt}>{prompt}</Option>;
           })}
 
@@ -125,32 +112,29 @@ const StudentPortrait = () => {
         Video link:
         <Input size="large" placeholder="Paste the Youtube URL" />
       </Modal>
-      <Header className="header-container">AKALA</Header>
       <div className="portrait-banner">
         <h1>Student Portrait</h1>
         <p>
-          Our country is home to millions of people. Each one of us is unique,
-          and we’re all part of the American story.
+          Our country is home to millions of people. Each one of us is unique, and we’re all part of
+          the American story.
         </p>
         <p>
-          PBS American Portrait asked people all over the country to submit
-          their individual stories by responding to one of a number of thought
-          provoking prompts. Whether it’s joy or sorrow, triumph or hardship,
-          family traditions followed for decades or just the morning school run,
-          this is a picture of life as it is really lived. American Portrait
-          gives us a glimpse into the lives of people across the country and
-          helps their stories be heard.
+          PBS American Portrait asked people all over the country to submit their individual stories
+          by responding to one of a number of thought provoking prompts. Whether it’s joy or sorrow,
+          triumph or hardship, family traditions followed for decades or just the morning school
+          run, this is a picture of life as it is really lived. American Portrait gives us a glimpse
+          into the lives of people across the country and helps their stories be heard.
         </p>
       </div>
-      {questions.map((item) => {
-        return <Prompt title={item.title} videos={item.videos} />;
+      {prompts?.map((item) => {
+        return <Prompt title={item.title} answers={item.answers} />;
       })}
       <div className="prompt-request">
         <h1>Like What You See? Want to get involved? Keep reading…</h1>
         <p>
-          Complete the sentence in a video, poem, drawing, song, or written
-          statement! Start brainstorming! To submit a video, post it on youtube
-          (can be unlisted) and submit the link below in the message box.
+          Complete the sentence in a video, poem, drawing, song, or written statement! Start
+          brainstorming! To submit a video, post it on youtube (can be unlisted) and submit the link
+          below in the message box.
         </p>
         <Button type="primary" size="large" onClick={showModal}>
           Submit a video

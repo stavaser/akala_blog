@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import 'video-react/dist/video-react.css';
 import 'antd/dist/antd.less';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
@@ -11,11 +12,7 @@ import { SCREEN_CHANGED } from './redux/constants/screen.constants';
 import StudentPortrait from './pages/StudentPortrait';
 import { GlobalStyles } from './global';
 import Header from './components/header/Header';
-import {
-  StyledLayout,
-  Sider,
-  Content,
-} from './components/shared/Layout.styled';
+import { StyledLayout, Sider, Content } from './components/shared/Layout.styled';
 import ArticlePage from './pages/ArticlePage';
 import Footer from './components/Footer/Footer';
 import { getCategories } from './redux/actions/nav.actions';
