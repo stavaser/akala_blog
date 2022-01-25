@@ -16,6 +16,9 @@ class Category(models.Model):
     emoji = models.CharField(max_length=100)
     description = models.TextField(max_length=360)
     is_visible = models.BooleanField(default=True)
+    order = models.PositiveSmallIntegerField(default=1)
+
+   
 
     def __str__(self):
         return self.category
@@ -26,12 +29,14 @@ class Category(models.Model):
     
     class Meta:
         verbose_name_plural = "categories"
+        ordering = ['order']
 
 
 class ArticleSection(models.Model):
     category = models.ForeignKey(Category, related_name="sections", on_delete=models.CASCADE)
     section = models.CharField(max_length=160)
     is_visible = models.BooleanField(default=True)
+    order = models.PositiveSmallIntegerField(default=1)
     
     def save(self, *args, **kwargs):
         self.section = title_case(self.section)
