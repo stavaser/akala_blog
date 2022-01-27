@@ -8,6 +8,7 @@ import {
 const initialState = {
   categories: [],
   category: { id: 1, order: 1 },
+  section: { order: 1 },
 };
 
 const navReducer = (state = initialState, action) => {
@@ -17,6 +18,8 @@ const navReducer = (state = initialState, action) => {
       return { ...state, categories: payload };
     case CATEGORY_CHANGED:
       return { ...state, category: payload };
+    case SECTION_CHANGED:
+      return { ...state, section: payload };
     default:
       return state;
   }

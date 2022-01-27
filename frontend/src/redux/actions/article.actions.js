@@ -5,19 +5,21 @@ import {
 } from '../constants/article.constants';
 import ArticleService from '../services/article.service';
 
-export const getAllArticles = (section_id) => async (dispatch) => {
-  try {
-    const res = await ArticleService.getAll(section_id);
-    dispatch({
-      type: ARTICLE_ALL_REQUESTED,
-      payload: res.data,
-    });
+export const getAllArticles =
+  (category_id, section_id = null) =>
+  async (dispatch) => {
+    try {
+      const res = await ArticleService.getAll(category_id, section_id);
+      dispatch({
+        type: ARTICLE_ALL_REQUESTED,
+        payload: res.data,
+      });
 
-    return Promise.resolve(res.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+      return Promise.resolve(res.data);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  };
 
 export const getArticleInfo = (article_id) => async (dispatch) => {
   try {
