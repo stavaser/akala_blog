@@ -14,11 +14,12 @@ const { TabPane } = Tabs;
 const Main = ({ data }) => {
   const slug = useParams();
   const { state } = useLocation();
+  const { hash } = useLocation();
   const articles = useSelector((state) => state.article.list);
   const category = useSelector((state) => state.nav.category);
   const dispatch = useDispatch();
 
-  console.log(slug, state);
+  console.log(slug, state, hash);
 
   useEffect(() => {
     dispatch(getAllArticles(state?.category_id, state?.section_id));

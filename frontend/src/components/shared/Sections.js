@@ -22,7 +22,9 @@ const Sections = ({ data }) => {
                     <NavLink
                       className="category"
                       // className={category.order == 1 ? 'active category' : 'category'}
-                      to={'/' + slugify(category.category)}
+                      to={{
+                        pathname: '/' + slugify(category.category),
+                      }}
                       state={{ category_id: category.id }}
                     >
                       {category.emoji + ' ' + category.category}
