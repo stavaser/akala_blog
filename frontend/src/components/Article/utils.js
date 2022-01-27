@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+// credits: https://www.emgoto.com/react-table-of-contents/
+
+import { useEffect, useRef, useState } from 'react';
 
 const getNestedHeadings = (headingElements) => {
   const nestedHeadings = [];
@@ -26,9 +28,7 @@ export const useHeadingsData = () => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
 
   useEffect(() => {
-    const headingElements = Array.from(
-      document.querySelectorAll('main h2, main h3')
-    );
+    const headingElements = Array.from(document.querySelectorAll('main h2, main h3'));
 
     // Created a list of headings, with H3s nested
     const newNestedHeadings = getNestedHeadings(headingElements);
@@ -54,8 +54,7 @@ export const useIntersectionObserver = (setActiveId) => {
         if (headingElement.isIntersecting) visibleHeadings.push(headingElement);
       });
 
-      const getIndexFromId = (id) =>
-        headingElements.findIndex((heading) => heading.id === id);
+      const getIndexFromId = (id) => headingElements.findIndex((heading) => heading.id === id);
 
       // If there is only one visible heading, this is our "active" heading
       if (visibleHeadings.length === 1) {

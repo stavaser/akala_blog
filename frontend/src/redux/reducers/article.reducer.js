@@ -14,6 +14,7 @@ const articleReducer = (state = initialState, action) => {
     case ARTICLE_SECTION_REQUESTED:
       return { ...state, list: payload };
     case ARTICLE_INFO_REQUESTED:
+      console.log(payload);
       return { ...state, info: payload };
     default:
       return state;

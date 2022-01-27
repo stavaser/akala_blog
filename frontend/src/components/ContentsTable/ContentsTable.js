@@ -1,28 +1,22 @@
 import { Timeline, Steps, Divider } from 'antd';
 import { List } from 'rc-field-form';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyledContentsTable } from './ContentsTable.styled';
 const { Step } = Steps;
 
-const ContentsTable = ({ headings, activeId = 0 }) => {
-  console.log(headings[activeId] && headings[activeId].items.length);
-  const onChange = () => {
-    console.log('helo');
-  };
+const ContentsTable = ({ headings, activeId }) => {
+  const onChange = () => {};
+  const activeKey = headings.indexOf(headings.find((x) => x.title === activeId));
   return (
     <StyledContentsTable>
       <div className="toc-title">Table of Contents</div>
       <Divider />
-      <Steps
-        onChange={onChange}
-        direction="vertical"
-        size="small"
-        current={activeId - 1}
-      >
-        {headings.map((heading) => {
+      <Steps onChange={onChange} direction="vertical" size="small" current={activeKey}>
+        {headings.map((heading, index) => {
+          console.log(index);
           return (
             <Step
-              key={heading.title}
+              key={index}
               className={heading.title === activeId ? 'active' : ''}
               title={
                 <a
@@ -46,11 +40,9 @@ const ContentsTable = ({ headings, activeId = 0 }) => {
                           href={`#${child.title}`}
                           onClick={(e) => {
                             e.preventDefault();
-                            document
-                              .querySelector(`#${child.title}`)
-                              .scrollIntoView({
-                                behavior: 'smooth',
-                              });
+                            document.querySelector(`#${child.title}`).scrollIntoView({
+                              behavior: 'smooth',
+                            });
                           }}
                         >
                           {child.title}

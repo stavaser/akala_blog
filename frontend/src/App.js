@@ -5,7 +5,7 @@ import 'antd/dist/antd.less';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import Wrapper from './components/shared/Wrapper';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import Main from './pages/Main';
 // import './styles/style.css';
 import { SCREEN_CHANGED } from './redux/constants/screen.constants';
@@ -17,7 +17,7 @@ import ArticlePage from './pages/ArticlePage';
 import Footer from './components/Footer/Footer';
 import { getCategories } from './redux/actions/nav.actions';
 import Home from './pages/Home';
-import Sections from './components/shared/Sections';
+import Sections from './components/Sections/Sections';
 const App = () => {
   const categories = useSelector((state) => state.nav.categories);
   const dispatch = useDispatch();
@@ -32,8 +32,9 @@ const App = () => {
         <Route exact path={'/'} element={<Main data={categories} />} />
         <Route exact path={'/:category'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section'} element={<Main data={categories} />} />
-        <Route exact path={'/article/:id'} element={<ArticlePage />} />
-        <Route exact path={'/studentPortrait'} element={<StudentPortrait />} />
+        <Route exact path={'/:category/:section/article/:article_id'} element={<ArticlePage />} />
+        {/* <Route exact path={'/studentPortrait'} element={<StudentPortrait />} /> */}
+        <Route exact path={'/:category/teenage-portrait'} element={<StudentPortrait />} />
       </Routes>
 
       <Footer />

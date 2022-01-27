@@ -5,10 +5,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ARTICLE_INFO_REQUESTED } from '../../redux/constants/article.constants';
-import {
-  StyledArticleCard,
-  StyledImagePlaceholder,
-} from './ArticleCard.styled';
+import { StyledArticleCard, StyledImagePlaceholder } from './ArticleCard.styled';
 
 const truncate = (str, n = 300) => {
   if (str.length <= n) {
@@ -19,19 +16,12 @@ const truncate = (str, n = 300) => {
 };
 
 const ArticleCard = ({ data }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   return (
-    // <Badge.Ribbon
-    //   text="Standardized Testing"
-    //   color="#d7b221"
-    //   style={{ borderRadius: '2px' }}
-    // >
     <StyledArticleCard hasImage={data.image}>
       <Link
         className="article-image-container"
         to={{
-          pathname: `/article/${data.id}`,
+          pathname: `../article/${data.id}`,
         }}
       >
         {
@@ -52,14 +42,8 @@ const ArticleCard = ({ data }) => {
 
         <h1>
           <Link
-            onClick={() =>
-              dispatch({
-                type: ARTICLE_INFO_REQUESTED,
-                payload: data,
-              })
-            }
             to={{
-              pathname: `/article/${data.id}`,
+              pathname: `../article/${data.id}`,
             }}
           >
             {data.title}
@@ -70,7 +54,6 @@ const ArticleCard = ({ data }) => {
         </p>
       </div>
     </StyledArticleCard>
-    // </Badge.Ribbon>
   );
 };
 

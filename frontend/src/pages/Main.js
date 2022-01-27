@@ -6,7 +6,7 @@ import { Markup } from 'interweave';
 
 import ArticleCard from '../components/ArticleCard/ArticleCard';
 import { StyledLayout, Sider, Content } from '../components/shared/Layout.styled';
-import Sections from '../components/shared/Sections';
+import Sections from '../components/Sections/Sections';
 import { getAllArticles } from '../redux/actions/article.actions';
 import Banner from '../components/Banner/Banner';
 const { TabPane } = Tabs;
@@ -24,7 +24,7 @@ const Main = ({ data }) => {
   useEffect(() => {
     dispatch(getAllArticles(slug?.category, slug?.section));
   }, [slug]);
-
+  console.log(articles);
   return (
     <React.Fragment>
       <StyledLayout>
@@ -32,17 +32,7 @@ const Main = ({ data }) => {
           <Sections data={data} />
         </Sider>
         <Content>
-          <Tabs defaultActiveKey="1" type="card" style={{ marginTop: '20px' }}>
-            <TabPane tab="All posts" key="1">
-              <Banner title={category.category} />
-            </TabPane>
-            <TabPane tab="Latest" key="2">
-              <Banner title={category.category} />
-            </TabPane>
-            <TabPane tab="Most popular" key="3">
-              <Banner title={category.category} />
-            </TabPane>
-          </Tabs>
+          <Banner title={category.category} />
 
           {articles &&
             articles.map((item) => {

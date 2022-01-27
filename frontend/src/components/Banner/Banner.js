@@ -3,7 +3,6 @@ import React from 'react';
 import { StyledBanner } from './Banner.styled';
 const { TabPane } = Tabs;
 const Banner = ({ title, subtitle }) => {
-  console.log(title?.length);
   return (
     <StyledBanner numLetters={title?.length}>
       <h1>
@@ -18,7 +17,6 @@ const Banner = ({ title, subtitle }) => {
           );
         })}
       </h1>
-      {/* style={{ animationDelay: `${idx * 4}s` }} */}
       <h3>{subtitle}</h3>
     </StyledBanner>
   );

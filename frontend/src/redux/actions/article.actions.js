@@ -23,6 +23,7 @@ export const getAllArticles =
 
 export const getArticleInfo = (article_id) => async (dispatch) => {
   try {
+    console.log(article_id);
     const res = await ArticleService.getInfo(article_id);
     dispatch({
       type: ARTICLE_INFO_REQUESTED,

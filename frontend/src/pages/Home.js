@@ -2,12 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ArticleCard from '../components/ArticleCard/ArticleCard';
 import Banner from '../components/Banner/Banner';
-import {
-  Content,
-  Sider,
-  StyledLayout,
-} from '../components/shared/Layout.styled';
-import Sections from '../components/shared/Sections';
+import { Content, Sider, StyledLayout } from '../components/shared/Layout.styled';
+import Sections from '../components/Sections/Sections';
 import SiderMenu from '../components/shared/SiderMenu';
 import { getAllArticles } from '../redux/actions/article.actions';
 

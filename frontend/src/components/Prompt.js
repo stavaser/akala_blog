@@ -5,14 +5,17 @@ import { Player, BigPlayButton } from 'video-react';
 
 const Prompt = ({ title, answers }) => {
   const [visible, setVisible] = useState(false);
-  const [url, setUrl] = useState('');
-  const openModal = (url) => {
-    setUrl(url);
+  const [video, setVideo] = useState({ url: '', is_youtube: false });
+  const openModal = (data) => {
+    console.log(data);
+    setVideo({ link: data.link, is_youtube: data.is_youtube });
     setVisible(true);
   };
   const closeModal = () => {
     setVisible(false);
+    setVideo({ url: '', is_youtube: false });
   };
+  console.log(video.link);
   return (
     <>
       <Modal
@@ -26,15 +29,13 @@ const Prompt = ({ title, answers }) => {
         // okButtonProps={{ disabled: true }}
         // cancelButtonProps={false}
       >
-        <Player autoPlay src={url}>
-          <BigPlayButton position="center" />
-        </Player>
-        {/* <ReactPlayer
-          style={{ margin: '0 auto' }}
-          url={[
-            { src: ' "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"', type: 'video/mp4' },
-          ]}
-        /> */}
+        {video.is_youtube ? (
+          <ReactPlayer style={{ margin: '0 auto' }} url={video.link} />
+        ) : (
+          <Player autoPlay src={video.link}>
+            <BigPlayButton position="center" />
+          </Player>
+        )}
       </Modal>
       <section className="prompt-container">
         <div className="prompt">
@@ -47,35 +48,25 @@ const Prompt = ({ title, answers }) => {
                 return (
                   <li className="prompt-content-item">
                     <a>
-                      <img src={answer.thumbnail} />
+                      <img src={answer.thumbnail_link} />
                       <div className="prompt-content-item-info">
                         <div className="wrap">
                           <h1>{answer.submitted_by}</h1>
                         </div>
                         <div className="view-full">
-                          <a onClick={() => openModal(answer.video_file)}>View full story</a>
+                          <a
+                            onClick={() =>
+                              openModal({ link: answer.video_link, is_youtube: answer.is_youtube })
+                            }
+                          >
+                            View full story
+                          </a>
                         </div>
                       </div>
                     </a>
                   </li>
                 );
               })}
-              {/* {[...Array.from({ length: 30 }, (v, i) => i)].map((i) => (
-                <li className="prompt-content-item">
-                  <a>
-                    <img src={`https://picsum.photos/80${i}/30${i}/?random`} />
-                    <div className="prompt-content-item-info">
-                      <div className="wrap">
-                        <h1>Name S.</h1>
-                        <h2>Location, AB</h2>
-                      </div>
-                      <div className="view-full">
-                        <a onClick={() => setVisible(true)}>View full story</a>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              ))} */}
             </ul>
           </div>
         </div>

@@ -24,7 +24,7 @@ const Sections = ({ data }) => {
                     <NavLink
                       className="category"
                       // className={category.order == 1 ? 'active category' : 'category'}
-                      to={'../' + category.slug}
+                      to={'../' + category.slug + '/all'}
                     >
                       {category.emoji + ' ' + category.category}
                       <svg
@@ -49,7 +49,6 @@ const Sections = ({ data }) => {
                 <Divider />
                 {category.sections &&
                   category.sections.map((item) => {
-                    console.log(item);
                     return (
                       <NavLink className="section" to={'../' + slug.category + '/' + item.slug}>
                         <li>
