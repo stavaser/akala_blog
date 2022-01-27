@@ -9,6 +9,7 @@ import { StyledLayout, Sider, Content } from '../components/shared/Layout.styled
 import ReactPlayer from 'react-player';
 import parse, { domToReact } from 'html-react-parser';
 import { getArticleInfo } from '../redux/actions/article.actions';
+import slugify from 'slugify';
 
 const ArticlePage = () => {
   const slug = useParams();
@@ -51,11 +52,25 @@ const ArticlePage = () => {
                         );
                       } else if (domNode.name == 'h2') {
                         return (
-                          <h2 id={domToReact(domNode.children)}>{domToReact(domNode.children)}</h2>
+                          <h2
+                            id={slugify(domToReact(domNode.children), {
+                              lower: true,
+                              remove: /[*+~.()'"!:@]/g,
+                            })}
+                          >
+                            {domToReact(domNode.children)}
+                          </h2>
                         );
                       } else if (domNode.name == 'h3') {
                         return (
-                          <h3 id={domToReact(domNode.children)}>{domToReact(domNode.children)}</h3>
+                          <h3
+                            id={slugify(domToReact(domNode.children), {
+                              lower: true,
+                              remove: /[*+~.()'"!:@]/g,
+                            })}
+                          >
+                            {domToReact(domNode.children)}
+                          </h3>
                         );
                       }
                     },

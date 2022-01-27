@@ -1,12 +1,12 @@
-import { Timeline, Steps, Divider } from 'antd';
-import { List } from 'rc-field-form';
-import React, { useState } from 'react';
+import { Steps, Divider } from 'antd';
+import React from 'react';
 import { StyledContentsTable } from './ContentsTable.styled';
 const { Step } = Steps;
 
 const ContentsTable = ({ headings, activeId }) => {
+  console.log(headings, activeId);
   const onChange = () => {};
-  const activeKey = headings.indexOf(headings.find((x) => x.title === activeId));
+  const activeKey = headings.indexOf(headings.find((x) => x.id === activeId));
   return (
     <StyledContentsTable>
       <div className="toc-title">Table of Contents</div>
@@ -18,35 +18,26 @@ const ContentsTable = ({ headings, activeId }) => {
             <Step
               key={index}
               className={heading.title === activeId ? 'active' : ''}
-              title={
-                <a
-                  href={`#${heading.title}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector(`#${heading.title}`).scrollIntoView({
-                      behavior: 'smooth',
-                    });
-                  }}
-                >
-                  {heading.title}
-                </a>
-              }
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(`#${heading.id}`).scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+              title={<a href={`#${heading.id}`}>{heading.title}</a>}
               description={
                 heading.items.length > 0 && (
                   <div className="sections">
                     {heading.items.map((child) => (
-                      <p>
-                        <a
-                          href={`#${child.title}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document.querySelector(`#${child.title}`).scrollIntoView({
-                              behavior: 'smooth',
-                            });
-                          }}
-                        >
-                          {child.title}
-                        </a>
+                      <p
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document.querySelector(`#${child.id}`).scrollIntoView({
+                            behavior: 'smooth',
+                          });
+                        }}
+                      >
+                        <a href={`#${child.id}`}>{child.title}</a>
                       </p>
                     ))}
                   </div>

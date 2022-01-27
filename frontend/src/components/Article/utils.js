@@ -78,7 +78,6 @@ export const useIntersectionObserver = (setActiveId) => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3'));
 
     headingElements.forEach((element) => observer.observe(element));
-
     return () => observer.disconnect();
   }, [setActiveId]);
 };
