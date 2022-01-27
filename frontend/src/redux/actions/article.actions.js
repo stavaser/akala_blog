@@ -6,10 +6,10 @@ import {
 import ArticleService from '../services/article.service';
 
 export const getAllArticles =
-  (category_id, section_id = null) =>
+  (category, section = null) =>
   async (dispatch) => {
     try {
-      const res = await ArticleService.getAll(category_id, section_id);
+      const res = await ArticleService.getAll(category, section);
       dispatch({
         type: ARTICLE_ALL_REQUESTED,
         payload: res.data,

@@ -4,12 +4,14 @@ import { StyledSectios } from './Sections.styled';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { CATEGORY_CHANGED, SECTION_CHANGED } from '../../redux/constants/nav.constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import slugify from 'slugify';
 import { Link, NavLink } from 'react-router-dom';
 const { Panel } = Collapse;
 
 const Sections = ({ data }) => {
+  const slug = useParams();
+
   return (
     <StyledSectios>
       <Collapse ghost accordion defaultActiveKey={1}>
@@ -22,10 +24,7 @@ const Sections = ({ data }) => {
                     <NavLink
                       className="category"
                       // className={category.order == 1 ? 'active category' : 'category'}
-                      to={{
-                        pathname: '/' + slugify(category.category),
-                      }}
-                      state={{ category_id: category.id }}
+                      to={'../' + category.slug}
                     >
                       {category.emoji + ' ' + category.category}
                       <svg
@@ -50,14 +49,9 @@ const Sections = ({ data }) => {
                 <Divider />
                 {category.sections &&
                   category.sections.map((item) => {
+                    console.log(item);
                     return (
-                      <NavLink
-                        className="section"
-                        to={{
-                          hash: slugify(item.section),
-                        }}
-                        state={{ category_id: category.id, section_id: item.id }}
-                      >
+                      <NavLink className="section" to={'../' + slug.category + '/' + item.slug}>
                         <li>
                           <ArrowRightOutlined style={{ marginRight: '10px' }} />
                           {item.section}

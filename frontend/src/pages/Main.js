@@ -22,8 +22,8 @@ const Main = ({ data }) => {
   console.log(slug, state, hash);
 
   useEffect(() => {
-    dispatch(getAllArticles(state?.category_id, state?.section_id));
-  }, [state]);
+    dispatch(getAllArticles(slug?.category, slug?.section));
+  }, [slug]);
 
   return (
     <React.Fragment>
