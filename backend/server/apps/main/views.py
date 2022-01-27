@@ -39,10 +39,10 @@ class ArticleViewSet(viewsets.ViewSet):
         elif request.GET.get('category_id'):                                  
             category_id = request.GET.get('category_id')
             queryset = Article.objects.filter(section__category=category_id)
-        # /article/?section_id=1
-        elif request.GET.get('section_id'):                                  
-            section_id = request.GET.get('section_id')
-            queryset = Article.objects.filter(section=section_id)
+            # /article/?category_id=1&section_id=4
+            if request.GET.get('section_id'):                                  
+                section_id = request.GET.get('section_id')
+                queryset = Article.objects.filter(section=section_id)
         else:
             queryset = Article.objects.all()
     
@@ -97,7 +97,7 @@ class ArticleSectionViewSet(viewsets.ViewSet):
 
 class PromptAnswerViewSet(viewsets.ViewSet):
     def list(self, request):
-        queryset = PromptAnswer.objects.all()
+        queryset = Prompt.objects.all()
     
-        serializer = PromptAnswerSerializer(queryset, many=True, context={'request': request})
+        serializer = PromptSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)

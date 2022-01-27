@@ -1,9 +1,11 @@
 # import readtime
 from django.db import models
+from django.db.models import Max
 from ckeditor.fields import RichTextField 
 from datetime import datetime
 from django.core.validators import FileExtensionValidator
 import re
+from django.template.defaultfilters import slugify
 import urllib.request
 import requests
 from pytube import YouTube
@@ -29,19 +31,23 @@ def get_reading_time(num):
 #     if pth:
 #         return pth[-1]
 
+def get_order_default():
+    return Category.objects.all().aggregate(Max('order'))['order__max']+1
+
 class Category(models.Model):
     category = models.CharField(max_length=160)
+    slug = models.SlugField(max_length=160, unique=True, editable=False)
     emoji = models.CharField(max_length=100)
     description = models.TextField(max_length=360)
     is_visible = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=1)
-
+    order = models.PositiveSmallIntegerField(default=get_order_default)
 
     def __str__(self):
         return self.category
 
     def save(self, *args, **kwargs):
         self.category = title_case(self.category)
+        self.slug = slugify(self.category)
         super(Category, self).save(*args, **kwargs)
     
     class Meta:
@@ -74,7 +80,7 @@ class Article(models.Model):
     title = models.CharField(max_length=160)
     text = RichTextField()
     readtime = models.PositiveSmallIntegerField(blank=True, null=True)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField()
     str_date = models.CharField(max_length=160, editable=False, blank=True, null=True)
     author = models.CharField(max_length=160, blank=True, null=True)
     image = models.ImageField(upload_to=article_image_path, height_field=None, width_field=None, blank=True, null=True)
@@ -99,8 +105,6 @@ class Article(models.Model):
                 kwargs.pop('force_insert')
 
         super(Article, self).save(*args, **kwargs)
-
-
 
     def __str__(self):
         return self.section.category.category + " / " + self.section.section + " / " + self.title + " / " + self.date.strftime("%d %b, %Y")
@@ -137,9 +141,8 @@ def get_thumbnail(self, url):
     return prompt_video_path(self) + "thumbnail.jpg"
 
 class PromptAnswer(models.Model):
-    prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="prompts")
+    prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="answers")
     submitted_by = models.CharField(max_length=160)
-    # need_download = models.BooleanField(default=False)
     is_youtube = models.BooleanField(default=True)
     video_link = models.CharField(max_length=160, blank=True, null=True)
     thumbnail_link = models.CharField(max_length=160, blank=True, null=True)

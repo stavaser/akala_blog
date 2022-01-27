@@ -23,11 +23,6 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = '__all__'
 
-class PromptSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prompt
-        fields = '__all__'
-
 class PromptAnswerSerializer(serializers.ModelSerializer):
     # prompts = PromptSerializer(many=True)
     # video_file_path = serializers.SerializerMethodField('get_path')
@@ -38,3 +33,10 @@ class PromptAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = PromptAnswer
         fields = '__all__'
+
+class PromptSerializer(serializers.ModelSerializer):
+    answers = PromptAnswerSerializer(many=True, read_only=True)
+    class Meta:
+        model = Prompt
+        fields = '__all__'
+
