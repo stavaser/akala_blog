@@ -35,14 +35,14 @@ class ArticleViewSet(viewsets.ViewSet):
         if request.GET.get('article_id'):                                  
             article_id = request.GET.get('article_id')
             queryset = Article.objects.filter(id=article_id)
-        # /article/?category_id=1
-        elif request.GET.get('category_id'):                                  
-            category_id = request.GET.get('category_id')
-            queryset = Article.objects.filter(section__category=category_id)
-            # /article/?category_id=1&section_id=4
-            if request.GET.get('section_id'):                                  
-                section_id = request.GET.get('section_id')
-                queryset = Article.objects.filter(section=section_id)
+        # /article/?category=la-la-la
+        elif request.GET.get('category'):                                  
+            category = request.GET.get('category')
+            queryset = Article.objects.filter(section__category__slug=category)
+            # /article/?category=la-la&section=la-la
+            if request.GET.get('section'):                                  
+                section = request.GET.get('section')
+                queryset = Article.objects.filter(section__slug=section)
         else:
             queryset = Article.objects.all()
     
@@ -79,7 +79,7 @@ class CategoryViewSet(viewsets.ViewSet):
 
 class ArticleSectionViewSet(viewsets.ViewSet):
     def list(self, request):
-        # /article_section/?section_id=1
+        # /article_section/?section=1
         if request.GET.get('section_id'):                                  
             section_id = request.GET.get('section_id')
             queryset = ArticleSection.objects.filter(id=section_id)

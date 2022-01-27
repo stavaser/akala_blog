@@ -58,11 +58,13 @@ class Category(models.Model):
 class ArticleSection(models.Model):
     category = models.ForeignKey(Category, related_name="sections", on_delete=models.CASCADE)
     section = models.CharField(max_length=160)
+    slug = models.SlugField(max_length=160, editable=False)
     is_visible = models.BooleanField(default=True)
     order = models.PositiveSmallIntegerField(default=1)
     
     def save(self, *args, **kwargs):
         self.section = title_case(self.section)
+        self.slug = slugify(self.section)
         super(ArticleSection, self).save(*args, **kwargs)
     
     def __str__(self):
