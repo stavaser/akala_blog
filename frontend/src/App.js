@@ -18,6 +18,7 @@ import Footer from './components/Footer/Footer';
 import { getCategories } from './redux/actions/nav.actions';
 import Home from './pages/Home';
 import Sections from './components/Sections/Sections';
+import PodcastPage from './pages/PodcastPage';
 const App = () => {
   const categories = useSelector((state) => state.nav.categories);
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App = () => {
         <Route exact path={'/:category'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section/article/:article_id'} element={<ArticlePage />} />
+        <Route exact path={'/podcast'} element={<PodcastPage data={categories} />} />
         {/* <Route exact path={'/studentPortrait'} element={<StudentPortrait />} /> */}
         <Route exact path={'/:category/teenage-portrait'} element={<StudentPortrait />} />
       </Routes>
