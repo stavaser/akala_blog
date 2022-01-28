@@ -24,17 +24,14 @@ const ArticleCard = ({ data }) => {
           pathname: `../article/${data.id}`,
         }}
       >
-        {
-          data.image ? <img className="article-image" src={data.image} /> : null
-          // <StyledImagePlaceholder>
-          //   <h1>{data.title}</h1>
-          // </StyledImagePlaceholder>
-        }
+        {data.image ? <img className="article-image" src={data.image} /> : null}
       </Link>
 
       <div className="article-body">
         <div className="article-info">
-          <h4>Standardized Testing / {data.str_date}</h4>
+          <h4>
+            {data.section_name}/ {data.str_date}
+          </h4>
           <h4>
             <ClockCircleOutlined /> 4 min read
           </h4>

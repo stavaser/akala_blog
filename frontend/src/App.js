@@ -34,7 +34,7 @@ const App = () => {
         <Route exact path={'/:category'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section/article/:article_id'} element={<ArticlePage />} />
-        <Route exact path={'/podcast'} element={<PodcastPage data={categories} />} />
+        <Route exact path={'/:category/podcasts'} element={<PodcastPage data={categories} />} />
         {/* <Route exact path={'/studentPortrait'} element={<StudentPortrait />} /> */}
         <Route exact path={'/:category/teenage-portrait'} element={<StudentPortrait />} />
       </Routes>

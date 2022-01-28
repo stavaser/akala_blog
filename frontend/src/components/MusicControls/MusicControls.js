@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyledMusicControls } from './MusicControls.styled';
 import { Modal, Button } from 'antd';
 
-const MusicControls = () => {
+const MusicControls = ({ url, provider }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -17,7 +17,64 @@ const MusicControls = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
+  const showPodcast = (url, provider) => {
+    switch (provider) {
+      case 'APPLE':
+        return (
+          <iframe
+            allow="autoplay *; encrypted-media *; fullscreen *"
+            frameborder="0"
+            height="450"
+            style={{
+              width: '100%',
+              maxWidth: '660px',
+              overflow: 'hidden',
+              background: 'transparent',
+            }}
+            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+            src="https://embed.podcasts.apple.com/us/podcast/wait-wait-dont-tell-me/id121493804"
+            // src={url}
+          ></iframe>
+        );
+      case 'SPOTIFY':
+        return (
+          <iframe
+            style={{ borderRadius: '12px' }}
+            // src={url}
+            src="https://open.spotify.com/embed/episode/5JzuNYOm8p6u5WzU9VBWid?utm_source=generator"
+            width="100%"
+            height="232"
+            frameBorder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          ></iframe>
+        );
+      case 'IHEART':
+        return (
+          <iframe
+            allow="autoplay"
+            width="100%"
+            height="200"
+            // src={url}
+            src="https://www.iheart.com/podcast/stuff-you-missed-in-history-cl-21124503/?embed=true"
+            frameborder="0"
+          ></iframe>
+        );
+      case 'STITCHER':
+        return (
+          <iframe
+            style={{ width: '100%' }}
+            // src={url}
+            src="https://www.stitcher.com/embed/7183/49361613"
+            width="220"
+            height="150"
+            frameBorder="0"
+            scrolling="no"
+          />
+        );
+      default:
+    }
+  };
   return (
     <>
       <StyledMusicControls>
@@ -45,9 +102,8 @@ const MusicControls = () => {
                 </g>
               </svg>
             </div>
-            <div class="play">
+            <div class="play" onClick={() => showModal()}>
               <svg
-                onClick={() => showModal()}
                 class="play-btn"
                 id="Layer_1"
                 style={{ enableBackground: 'new 0 0 512px 512px' }}
@@ -100,24 +156,12 @@ const MusicControls = () => {
       </StyledMusicControls>
 
       <Modal
-        title="Listen to podcast"
+        title={`Our favorite episode:`}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <iframe
-          allow="autoplay *; encrypted-media *; fullscreen *"
-          frameborder="0"
-          height="450"
-          style={{
-            width: '100%',
-            maxWidth: '660px',
-            overflow: 'hidden',
-            background: 'transparent',
-          }}
-          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          src="https://embed.podcasts.apple.com/us/podcast/wait-wait-dont-tell-me/id121493804"
-        ></iframe>
+        {showPodcast(url, provider)}
       </Modal>
     </>
   );

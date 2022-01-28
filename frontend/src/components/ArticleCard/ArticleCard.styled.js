@@ -33,7 +33,9 @@ export const StyledArticleCard = styled.div`
   }
 
   .article-body h1 {
-    font-size: 3em;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: Vanilla;
   }
   .article-body h3 {
     color: ${({ theme }) => theme.green};

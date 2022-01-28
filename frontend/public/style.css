@@ -14,3 +14,12 @@
   font-family: Cinema;
   src: url('./fonts/cinema/cinema_st.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: Junegull;
+  src: url('./fonts/junegull/junegull.ttf') format('truetype');
+}
+@font-face {
+  font-family: Vanilla;
+  src: url('./fonts/VanillaExtractRegular.ttf') format('truetype');
+}

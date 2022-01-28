@@ -10,6 +10,9 @@ class ArticleService {
   getInfo(id) {
     return http.get(`/api/article/?article_id=${id}`);
   }
+  getAllPodcasts() {
+    return http.get(`/api/podcasts/`);
+  }
 }
 
 export default new ArticleService();

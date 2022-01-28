@@ -6,9 +6,11 @@ export const StyledPodcastPLayer = styled.div`
   margin: 0 0 20px 0;
   position: relative;
   display: flex;
-
+  height: 200px;
   img {
     width: 200px;
+    height: 100%;
+    object-fit: cover;
   }
   .side {
     position: relative;
