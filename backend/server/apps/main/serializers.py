@@ -19,6 +19,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class ArticleSerializer(serializers.ModelSerializer):
+    # foo = serializers.SerializerMethodField()
+
+    # def get_foo(self, obj):
+    #     return "Foo id: %i" % obj.pk
+
     class Meta:
         model = Article
         fields = '__all__'

@@ -58,7 +58,7 @@ class Category(models.Model):
 class ArticleSection(models.Model):
     category = models.ForeignKey(Category, related_name="sections", on_delete=models.CASCADE)
     section = models.CharField(max_length=160)
-    slug = models.SlugField(max_length=160, editable=False)
+    slug = models.SlugField(max_length=160, unique=True, editable=False)
     is_visible = models.BooleanField(default=True)
     order = models.PositiveSmallIntegerField(default=1)
     
@@ -78,8 +78,9 @@ def article_image_path(self, filename):
     return 'media/articles/article_{0}/{1}'.format(self.id, filename)
 
 class Article(models.Model):
-    section = models.ForeignKey(ArticleSection, on_delete=models.CASCADE)
+    section = models.ForeignKey(ArticleSection, related_name="articles", on_delete=models.CASCADE)
     title = models.CharField(max_length=160)
+    slug = models.SlugField(max_length=160, unique=True, editable=False)
     text = RichTextField()
     readtime = models.PositiveSmallIntegerField(blank=True, null=True)
     date = models.DateTimeField()
@@ -96,6 +97,7 @@ class Article(models.Model):
         return 2
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
         self.readtime = self.get_readtime()
         self.str_date = self.date.strftime("%d %b, %Y")
         if self.id is None:
@@ -148,27 +150,20 @@ class PromptAnswer(models.Model):
     is_youtube = models.BooleanField(default=True)
     video_link = models.CharField(max_length=160, blank=True, null=True)
     thumbnail_link = models.CharField(max_length=160, blank=True, null=True)
-    thumbnail = models.ImageField(upload_to=prompt_image_path, height_field=None, width_field=None, blank=True, null=True)
-    video_file = models.FileField(upload_to=prompt_video_path, blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+    # thumbnail = models.ImageField(upload_to=prompt_image_path, height_field=None, width_field=None, blank=True, null=True)
+    # video_file = models.FileField(upload_to=prompt_video_path, blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
     
     def __str__(self):
         return '{0} - {1}'.format(self.submitted_by, self.prompt.title)
     
     def save(self, *args, **kwargs):
-        if self.id is None:
-            saved_video = self.video_file
-            self.video_file = None
-            super(PromptAnswer, self).save(*args, **kwargs)
-            if self.is_youtube:
-                yt = YouTube(self.video_link)
-                yt.streams.filter(progressive=True).order_by('resolution').desc().first().download(output_path=prompt_video_path(self), filename="video.mp4")
-                self.video_file = prompt_video_path(self, dir=False)
-                self.thumbnail = get_thumbnail(self, yt.thumbnail_url)
-            else:
-                self.video_file = download_video(self)
-                self.thumbnail = get_thumbnail(self, self.thumbnail_link)
+        if self.is_youtube:
+            self.thumbnail = YouTube(self.video_link).thumbnail_url
 
-            if 'force_insert' in kwargs:
-                kwargs.pop('force_insert')
+        super(PromptAnswer, self).save(*args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        if self.is_youtube:
+            self.thumbnail = YouTube(self.video_link).thumbnail_url
 
         super(PromptAnswer, self).save(*args, **kwargs)

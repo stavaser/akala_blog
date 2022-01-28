@@ -32,22 +32,41 @@ from .serializers import *
 class ArticleViewSet(viewsets.ViewSet):
     def list(self, request):
         # /article/?article_id=1
-        if request.GET.get('article_id'):                                  
+        if request.GET.get('article_id'):
             article_id = request.GET.get('article_id')
-            queryset = Article.objects.filter(id=article_id)
+            queryset = Article.objects.get(id=article_id)
+
+            serializer = ArticleSerializer(queryset, many=False, context={'request': request})
+            return Response(serializer.data)
         # /article/?category=la-la-la
-        elif request.GET.get('category'):                                  
-            category = request.GET.get('category')
-            queryset = Article.objects.filter(section__category__slug=category)
+        elif request.GET.get('category'):
+            category_slug = request.GET.get('category')
+            queryset = Article.objects.filter(section__category__slug=category_slug)
+            category = Category.objects.get(slug=category_slug).category
+            section = 'all posts'
+            
             # /article/?category=la-la&section=la-la
-            if request.GET.get('section'):                                  
-                section = request.GET.get('section')
-                queryset = Article.objects.filter(section__slug=section)
+            if request.GET.get('section'):
+                section_slug = request.GET.get('section')
+                # get all articles in category
+                if section_slug == 'all':
+                    queryset = Article.objects.filter(section__category__slug=category_slug)
+                # get articles withing a section
+                else:
+                    queryset = Article.objects.filter(section__slug=section_slug)
+                    section = ArticleSection.objects.get(slug=section_slug).section
+                
+            if category_slug == 'home':
+                queryset = Article.objects.all()
+
+            data = {'category':category, 'section':section}
+
         else:
             queryset = Article.objects.all()
-    
-        serializer = ArticleSerializer(queryset, many=True, context={'request': request})
-        return Response(serializer.data)
+        
+        serializer = ArticleSerializer(queryset.order_by('-id'), many=True, context={'request': request})
+        data['list'] = serializer.data
+        return Response(data)
 
     def partial_update(self, request):
         # {'article_id':1}
