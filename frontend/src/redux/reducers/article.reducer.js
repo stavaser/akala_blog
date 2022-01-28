@@ -4,17 +4,14 @@ import {
   ARTICLE_INFO_REQUESTED,
 } from '../constants/article.constants';
 
-const initialState = {};
+const initialState = { list: [], category: '', section: '' };
 
 const articleReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case ARTICLE_ALL_REQUESTED:
-      return { ...state, list: payload };
-    case ARTICLE_SECTION_REQUESTED:
-      return { ...state, list: payload };
+      return { ...state, list: payload.list, category: payload.category, section: payload.section };
     case ARTICLE_INFO_REQUESTED:
-      console.log(payload);
       return { ...state, info: payload };
     default:
       return state;

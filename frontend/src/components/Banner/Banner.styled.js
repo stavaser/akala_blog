@@ -29,11 +29,8 @@ export const StyledBanner = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 20px 40px;
   margin-bottom: 20px;
-  margin-top: -17px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-
+  border-radius: 10px;
+  margin-top: 20px;
   h1 {
     text-align: center;
     color: ${({ theme }) => theme.green};

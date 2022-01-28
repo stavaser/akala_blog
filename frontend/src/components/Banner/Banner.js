@@ -1,7 +1,6 @@
 import { Tabs, Timeline } from 'antd';
 import React from 'react';
 import { StyledBanner } from './Banner.styled';
-const { TabPane } = Tabs;
 const Banner = ({ title, subtitle }) => {
   return (
     <StyledBanner numLetters={title?.length}>

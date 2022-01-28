@@ -27,6 +27,50 @@ const ArticlePage = () => {
     useIntersectionObserver(setActiveId);
     return <ContentsTable headings={nestedHeadings} activeId={activeId} />;
   };
+
+  const replaceHtmlWithReact = (domNode) => {
+    if (!domNode.attribs) return;
+
+    if (domNode.attribs.id === 'youtube') {
+      return <ReactPlayer style={{ margin: '0 auto' }} url={domNode.attribs.href} />;
+    } else if (domNode.name === 'h2') {
+      return (
+        <h2
+          id={slugify(getText(domNode), {
+            lower: true,
+            remove: /[*+~.()'"!?:@]/g,
+          })}
+        >
+          {domToReact(domNode.children, { replace: replaceHtmlWithReact })}
+        </h2>
+      );
+    } else if (domNode.name === 'h3') {
+      return (
+        <h3
+          id={slugify(getText(domNode), {
+            lower: true,
+            remove: /[*+~.()'"!?:@]/g,
+          })}
+        >
+          {domToReact(domNode.children, { replace: replaceHtmlWithReact })}
+        </h3>
+      );
+    }
+  };
+
+  const getText = (node) => {
+    const recursor = (n) => {
+      var i,
+        a = '';
+      if (n.nodeType !== 3) {
+        if (n.childNodes)
+          for (i = 0; i < n.childNodes.length; ++i) a = a.concat(recursor(n.childNodes[i]));
+      } else a += n.data;
+      return a;
+    };
+    return recursor(node);
+  };
+
   return (
     <StyledLayout>
       <Sider article>
@@ -45,35 +89,7 @@ const ArticlePage = () => {
                 <h1>{article?.title}</h1>
                 {article?.text &&
                   parse(article.text, {
-                    replace: (domNode) => {
-                      if (domNode.attribs && domNode.attribs.id === 'youtube') {
-                        return (
-                          <ReactPlayer style={{ margin: '0 auto' }} url={domNode.attribs.href} />
-                        );
-                      } else if (domNode.name == 'h2') {
-                        return (
-                          <h2
-                            id={slugify(domToReact(domNode.children), {
-                              lower: true,
-                              remove: /[*+~.()'"!:@]/g,
-                            })}
-                          >
-                            {domToReact(domNode.children)}
-                          </h2>
-                        );
-                      } else if (domNode.name == 'h3') {
-                        return (
-                          <h3
-                            id={slugify(domToReact(domNode.children), {
-                              lower: true,
-                              remove: /[*+~.()'"!:@]/g,
-                            })}
-                          >
-                            {domToReact(domNode.children)}
-                          </h3>
-                        );
-                      }
-                    },
+                    replace: replaceHtmlWithReact,
                   })}
               </div>
             </main>
