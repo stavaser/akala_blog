@@ -19,4 +19,8 @@ urlpatterns = [
         {
             'get': 'list',
         })),
+    path("podcasts/", PodcastViewSet.as_view(
+        {
+            'get': 'list',
+        })),
 ]

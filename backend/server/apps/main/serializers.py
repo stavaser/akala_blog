@@ -23,7 +23,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     # def get_foo(self, obj):
     #     return "Foo id: %i" % obj.pk
-
+    section_name = serializers.ReadOnlyField(source='section.section')
     class Meta:
         model = Article
         fields = '__all__'
@@ -43,5 +43,10 @@ class PromptSerializer(serializers.ModelSerializer):
     answers = PromptAnswerSerializer(many=True, read_only=True)
     class Meta:
         model = Prompt
+        fields = '__all__'
+
+class PodcastSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Podcast
         fields = '__all__'
 

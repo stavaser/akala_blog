@@ -162,8 +162,40 @@ class PromptAnswer(models.Model):
 
         super(PromptAnswer, self).save(*args, **kwargs)
 
-    def update(self, *args, **kwargs):
-        if self.is_youtube:
-            self.thumbnail = YouTube(self.video_link).thumbnail_url
 
-        super(PromptAnswer, self).save(*args, **kwargs)
+def podcast_image_path(self, filename):
+    return 'media/podcasts/podcast_{0}_{1}'.format(self.id, filename)
+
+
+class Podcast(models.Model):
+    PROVIDER_CHOICES = (
+        ("APPLE", "Apple Podcasts"),
+        ("SPOTIFY", "Spotify"),
+        ("IHEART", "iHeart"),
+        ("STITCHER", "Stitcher"),
+    )
+
+    title = models.CharField(max_length=160)
+    image = models.CharField(max_length=160)
+    slug = models.SlugField(max_length=160, unique=True, editable=False)
+    description = models.TextField(max_length=310)
+    favorite_link = models.CharField(max_length=160)
+    image = models.ImageField(upload_to=podcast_image_path, height_field=None, width_field=None, blank=True, null=True)
+    provider = models.CharField(max_length=50,
+                  choices=PROVIDER_CHOICES,
+                  default="APPLE")
+
+    def __str__(self):
+        return '{0}'.format(self.title)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        if self.id is None:
+            saved_image = self.image
+            self.image = None
+            super(Podcast, self).save(*args, **kwargs)
+            self.image = saved_image
+            if 'force_insert' in kwargs:
+                kwargs.pop('force_insert')
+        
+        super(Podcast, self).save(*args, **kwargs)

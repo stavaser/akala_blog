@@ -31,6 +31,7 @@ from .serializers import *
 
 class ArticleViewSet(viewsets.ViewSet):
     def list(self, request):
+        data = {}
         # /article/?article_id=1
         if request.GET.get('article_id'):
             article_id = request.GET.get('article_id')
@@ -112,6 +113,11 @@ class ArticleSectionViewSet(viewsets.ViewSet):
         serializer = ArticleSectionSerializer(queryset, many=True)
         return Response(serializer.data)
 
+class PodcastViewSet(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Podcast.objects.all()
+        serializer = PodcastSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 
 class PromptAnswerViewSet(viewsets.ViewSet):
