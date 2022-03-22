@@ -9,8 +9,10 @@ export const Sider = styled.div`
   overflow: scroll;
   min-width: 20%;
   max-width: 20%;
-  padding: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
   &:first-child {
+    padding: 20px;
     /* min-width: ${({ article }) => (article ? '15%' : '20%')};
     max-width: ${({ article }) => (article ? '15%' : '20%')}; */
     background-color: ${({ theme }) => theme.white};
@@ -18,7 +20,9 @@ export const Sider = styled.div`
   height: 100vh;
   position: sticky;
   top: 0;
-
+  /* &::nth-child(2) {
+    
+  } */
   /* .ant-tabs-top > .ant-tabs-nav {
     margin-bottom: 0 !important;
   } */

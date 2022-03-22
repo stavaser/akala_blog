@@ -3,9 +3,10 @@ import {
   ARTICLE_SECTION_REQUESTED,
   ARTICLE_INFO_REQUESTED,
   PODCAST_ALL_REQUESTED,
+  WHY_SCHOOL_ALL_REQUESTED,
 } from '../constants/article.constants';
 
-const initialState = { list: [], category: '', section: '', podcasts: [] };
+const initialState = { list: [], category: '', section: '', podcasts: [], schools: [] };
 
 const articleReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -16,6 +17,8 @@ const articleReducer = (state = initialState, action) => {
       return { ...state, info: payload };
     case PODCAST_ALL_REQUESTED:
       return { ...state, podcasts: payload };
+    case WHY_SCHOOL_ALL_REQUESTED:
+      return { ...state, schools: payload };
     default:
       return state;
   }

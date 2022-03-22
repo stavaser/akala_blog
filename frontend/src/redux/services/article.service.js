@@ -13,6 +13,9 @@ class ArticleService {
   getAllPodcasts() {
     return http.get(`/api/podcasts/`);
   }
+  getAllSchoolVideos() {
+    return http.get(`/api/whyschool/`);
+  }
 }
 
 export default new ArticleService();

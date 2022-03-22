@@ -19,6 +19,8 @@ import { getCategories } from './redux/actions/nav.actions';
 import Home from './pages/Home';
 import Sections from './components/Sections/Sections';
 import PodcastPage from './pages/PodcastPage';
+import WhySchoolPage from './pages/WhySchoolPage';
+
 const App = () => {
   const categories = useSelector((state) => state.nav.categories);
   const dispatch = useDispatch();
@@ -35,7 +37,11 @@ const App = () => {
         <Route exact path={'/:category/:section'} element={<Main data={categories} />} />
         <Route exact path={'/:category/:section/article/:article_id'} element={<ArticlePage />} />
         <Route exact path={'/:category/podcasts'} element={<PodcastPage data={categories} />} />
-        {/* <Route exact path={'/studentPortrait'} element={<StudentPortrait />} /> */}
+        <Route
+          exact
+          path={'/why-i-love-my-school/all'}
+          element={<WhySchoolPage data={categories} />}
+        />
         <Route exact path={'/:category/teenage-portrait'} element={<StudentPortrait />} />
       </Routes>
 

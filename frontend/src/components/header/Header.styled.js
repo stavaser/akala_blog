@@ -14,8 +14,7 @@ export const StyledHeader = styled.div`
     position: relative;
     padding: 20px;
     display: flex;
-    background-color: ${({ theme }) => theme.white};
-    /* box-shadow: ${({ theme }) => theme.shadow}; */
+    background-color: ${({ theme }) => theme.green};
     border-bottom: ${({ theme }) => theme.border};
     justify-content: space-between;
   }
@@ -26,6 +25,9 @@ export const StyledHeader = styled.div`
     font-weight: 900;
     cursor: pointer;
     color: ${({ theme }) => theme.green};
+  }
+  .logo img {
+    width: 150px;
   }
   .logo span {
     display: inline-block;
@@ -52,4 +54,32 @@ export const StyledHeader = styled.div`
   .logo:hover span:nth-child(7) {
     animation-delay: 0.6s;
   }
+
+  .social-media .icons {
+    font-size: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .social-media .icons span {
+    transition-duration: 300ms;
+    color: ${({ theme }) => theme.white};
+    margin-left: 20px;
+  }
+  .social-media .icons span:hover {
+    color: ${({ theme }) => theme.primaryHover};
+  }
+  /* .social-media a {
+    color: ${({ theme }) => theme.white};
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: block;
+    letter-spacing: 2px;
+    margin-top: 10px;
+  }
+  .social-media a:hover {
+    color: ${({ theme }) => theme.primaryHover};
+  } */
 `;
